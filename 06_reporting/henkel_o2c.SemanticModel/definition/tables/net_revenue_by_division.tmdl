@@ -1,0 +1,58 @@
+table net_revenue_by_division
+	lineageTag: 379e016a-5644-4f0a-94b1-32c1d732a76f
+
+	column year_month
+		dataType: string
+		lineageTag: a812c216-e9f5-47ee-a632-70b39f732fd9
+		summarizeBy: none
+		sourceColumn: year_month
+
+		annotation SummarizationSetBy = Automatic
+
+	column division
+		dataType: string
+		lineageTag: 2fafafda-3a54-42ac-930f-370e7bd4cd53
+		summarizeBy: none
+		sourceColumn: division
+
+		annotation SummarizationSetBy = Automatic
+
+	column material_group
+		dataType: string
+		lineageTag: ecf88bb7-4409-4738-839b-8dd3dc498dc3
+		summarizeBy: none
+		sourceColumn: material_group
+
+		annotation SummarizationSetBy = Automatic
+
+	column document_currency
+		dataType: string
+		lineageTag: 40c4adad-eac4-4177-9216-1b7c409d61d1
+		summarizeBy: none
+		sourceColumn: document_currency
+
+		annotation SummarizationSetBy = Automatic
+
+	column net_revenue
+		dataType: double
+		lineageTag: f7be3ce5-921f-45b3-8bf3-60afe4c9f281
+		summarizeBy: sum
+		sourceColumn: net_revenue
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	partition net_revenue_by_division = m
+		mode: import
+		source =
+				let
+				    Source = Odbc.DataSource("Driver={DuckDB Driver};Database=" & DuckDbPath & ";access_mode=read_only", [HierarchicalNavigation=true]),
+				    data_Database = Source{[Name="data",Kind="Database"]}[Data],
+				    mart_sales_Schema = data_Database{[Name="mart_sales",Kind="Schema"]}[Data],
+				    net_revenue_by_division_View = mart_sales_Schema{[Name="net_revenue_by_division",Kind="View"]}[Data]
+				in
+				    net_revenue_by_division_View
+
+	annotation PBI_ResultType = Table
+

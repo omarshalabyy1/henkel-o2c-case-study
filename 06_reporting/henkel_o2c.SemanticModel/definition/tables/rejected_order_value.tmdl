@@ -1,0 +1,59 @@
+table rejected_order_value
+	lineageTag: a6a6c40f-c6c4-4b19-b570-d5772ba63139
+
+	column currency
+		dataType: string
+		lineageTag: cef43b35-6aa3-40b1-ae7e-390b8b440361
+		summarizeBy: none
+		sourceColumn: currency
+
+		annotation SummarizationSetBy = Automatic
+
+	column rejection_reason
+		dataType: string
+		lineageTag: d1907649-dac6-43b7-a799-80226eda0f0d
+		summarizeBy: none
+		sourceColumn: rejection_reason
+
+		annotation SummarizationSetBy = Automatic
+
+	column description
+		dataType: string
+		lineageTag: 47de0406-c93c-4512-b746-9bb581d09aeb
+		summarizeBy: none
+		sourceColumn: description
+
+		annotation SummarizationSetBy = Automatic
+
+	column rejected_lines
+		dataType: int64
+		formatString: 0
+		lineageTag: a70d567f-d943-4575-acff-2d70ca4bab52
+		summarizeBy: sum
+		sourceColumn: rejected_lines
+
+		annotation SummarizationSetBy = Automatic
+
+	column rejected_value
+		dataType: double
+		lineageTag: d6ee42e4-9bcd-4ec4-a418-56d61bb6b79f
+		summarizeBy: sum
+		sourceColumn: rejected_value
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	partition rejected_order_value = m
+		mode: import
+		source =
+				let
+				    Source = Odbc.DataSource("Driver={DuckDB Driver};Database=" & DuckDbPath & ";access_mode=read_only", [HierarchicalNavigation=true]),
+				    data_Database = Source{[Name="data",Kind="Database"]}[Data],
+				    mart_sales_Schema = data_Database{[Name="mart_sales",Kind="Schema"]}[Data],
+				    rejected_order_value_View = mart_sales_Schema{[Name="rejected_order_value",Kind="View"]}[Data]
+				in
+				    rejected_order_value_View
+
+	annotation PBI_ResultType = Table
+

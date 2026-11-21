@@ -1,0 +1,70 @@
+table on_time_delivery
+	lineageTag: 4bd93035-d97d-4e7e-a721-eab1f6faddb3
+
+	column fully_shipped_lines
+		dataType: int64
+		formatString: 0
+		lineageTag: dc7a8db2-ecab-4949-b675-97e3034ec851
+		summarizeBy: sum
+		sourceColumn: fully_shipped_lines
+
+		annotation SummarizationSetBy = Automatic
+
+	column on_time_lines
+		dataType: int64
+		formatString: 0
+		lineageTag: 9502d4d0-2f8d-45b9-9dc8-cf758cb3bf1c
+		summarizeBy: sum
+		sourceColumn: on_time_lines
+
+		annotation SummarizationSetBy = Automatic
+
+	column on_time_rate
+		dataType: double
+		lineageTag: 012f64c7-4627-4c95-b823-f2939a7e538d
+		summarizeBy: none
+		sourceColumn: on_time_rate
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column worst_days_late
+		dataType: int64
+		formatString: 0
+		lineageTag: 2bb8bfcc-93ac-4591-9e34-5994eb05d91a
+		summarizeBy: none
+		sourceColumn: worst_days_late
+
+		annotation SummarizationSetBy = Automatic
+
+	column past_due_unshipped_lines
+		dataType: int64
+		formatString: 0
+		lineageTag: dad8016e-2d36-42ac-9335-b3d4eea0fc98
+		summarizeBy: sum
+		sourceColumn: past_due_unshipped_lines
+
+		annotation SummarizationSetBy = Automatic
+
+	column currency
+		dataType: string
+		lineageTag: e65c7499-db36-41a9-a683-13d177dad943
+		summarizeBy: none
+		sourceColumn: currency
+
+		annotation SummarizationSetBy = Automatic
+
+	partition on_time_delivery = m
+		mode: import
+		source =
+				let
+				    Source = Odbc.DataSource("Driver={DuckDB Driver};Database=" & DuckDbPath & ";access_mode=read_only", [HierarchicalNavigation=true]),
+				    data_Database = Source{[Name="data",Kind="Database"]}[Data],
+				    mart_operations_Schema = data_Database{[Name="mart_operations",Kind="Schema"]}[Data],
+				    on_time_delivery_View = mart_operations_Schema{[Name="on_time_delivery",Kind="View"]}[Data]
+				in
+				    on_time_delivery_View
+
+	annotation PBI_ResultType = Table
+

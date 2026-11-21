@@ -1,0 +1,173 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.14.0/schema.json",
+  "name": "eb6f64e172a9aa98ba5f",
+  "position": {
+    "x": 330,
+    "y": 318,
+    "z": 10000,
+    "height": 722,
+    "width": 900,
+    "tabOrder": 10000
+  },
+  "visual": {
+    "visualType": "tableEx",
+    "query": {
+      "queryState": {
+        "Values": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "on_time_delivery_by_line"
+                    }
+                  },
+                  "Property": "sales_order_number"
+                }
+              },
+              "queryRef": "on_time_delivery_by_line.sales_order_number",
+              "nativeQueryRef": "sales_order_number"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "on_time_delivery_by_line"
+                    }
+                  },
+                  "Property": "item_number"
+                }
+              },
+              "queryRef": "on_time_delivery_by_line.item_number",
+              "nativeQueryRef": "item_number"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "on_time_delivery_by_line"
+                    }
+                  },
+                  "Property": "sold_to_customer"
+                }
+              },
+              "queryRef": "on_time_delivery_by_line.sold_to_customer",
+              "nativeQueryRef": "sold_to_customer"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "on_time_delivery_by_line"
+                    }
+                  },
+                  "Property": "customer_requested_delivery_date"
+                }
+              },
+              "queryRef": "on_time_delivery_by_line.customer_requested_delivery_date",
+              "nativeQueryRef": "customer_requested_delivery_date"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "on_time_delivery_by_line"
+                    }
+                  },
+                  "Property": "last_goods_issue_date"
+                }
+              },
+              "queryRef": "on_time_delivery_by_line.last_goods_issue_date",
+              "nativeQueryRef": "last_goods_issue_date"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "on_time_delivery_by_line"
+                    }
+                  },
+                  "Property": "days_late"
+                }
+              },
+              "queryRef": "Sum(on_time_delivery_by_line.days_late)",
+              "nativeQueryRef": "days_late"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "on_time_delivery_by_line"
+                    }
+                  },
+                  "Property": "Delivery status"
+                }
+              },
+              "queryRef": "on_time_delivery_by_line.Delivery status",
+              "nativeQueryRef": "Delivery status"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "on_time_delivery_by_line"
+                    }
+                  },
+                  "Property": "is_past_due_unshipped"
+                }
+              },
+              "queryRef": "on_time_delivery_by_line.is_past_due_unshipped",
+              "nativeQueryRef": "is_past_due_unshipped"
+            }
+          ]
+        }
+      },
+      "sortDefinition": {
+        "sort": [
+          {
+            "field": {
+              "Aggregation": {
+                "Expression": {
+                  "Column": {
+                    "Expression": {
+                      "SourceRef": {
+                        "Entity": "on_time_delivery_by_line"
+                      }
+                    },
+                    "Property": "days_late"
+                  }
+                },
+                "Function": 0
+              }
+            },
+            "direction": "Descending"
+          }
+        ]
+      }
+    },
+    "visualContainerObjects": {
+      "title": [
+        {
+          "properties": {
+            "text": {
+              "expr": {
+                "Literal": {
+                  "Value": "'Every shipped or past-due order line'"
+                }
+              }
+            }
+          }
+        }
+      ]
+    },
+    "drillFilterOtherVisuals": true
+  }
+}

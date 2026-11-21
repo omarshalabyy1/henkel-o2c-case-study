@@ -1,0 +1,18 @@
+table Stage
+	lineageTag: 18558473-f9d5-4d44-ad69-bb1ecfc3e50a
+
+	column Stage
+		dataType: string
+		lineageTag: f5857530-08e0-472e-adb6-f1660c5474e6
+		sourceColumn: [Stage]
+		sortByColumn: Order
+
+	column Order
+		dataType: int64
+		lineageTag: c1132dc8-6bd5-4dd3-93a1-aec67f2a9cb2
+		sourceColumn: [Order]
+
+	partition Stage = calculated
+		mode: import
+		source = DATATABLE ( "Stage", STRING, "Order", INTEGER, { { "1 Open to ship", 1 }, { "2 Billing backlog", 2 }, { "3 Open receivables", 3 } } )
+

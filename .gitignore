@@ -1,0 +1,16 @@
+# rebuilt by setup.py + run_sql.py
+data.duckdb
+*.duckdb.wal
+
+# working files, not part of the hand-in
+plans/
+starter_notebook.ipynb
+
+# Power BI: old single-file report (replaced by the .pbip), local caches, scratch scripts
+06_reporting/Report.pbix
+**/.pbi/
+06_reporting/henkel_o2c.SemanticModel/TMDLScripts/
+
+# Python / Jupyter
+__pycache__/
+.ipynb_checkpoints/

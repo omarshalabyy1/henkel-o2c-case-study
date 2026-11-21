@@ -1,0 +1,11 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/gitIntegration/platformProperties/2.0.0/schema.json",
+  "metadata": {
+    "type": "SemanticModel",
+    "displayName": "henkel_o2c"
+  },
+  "config": {
+    "version": "2.0",
+    "logicalId": "1bf909c0-14f6-43cd-9c87-7c3cdf52ed0b"
+  }
+}

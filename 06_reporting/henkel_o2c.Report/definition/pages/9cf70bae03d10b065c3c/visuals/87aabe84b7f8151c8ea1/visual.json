@@ -1,0 +1,127 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.14.0/schema.json",
+  "name": "87aabe84b7f8151c8ea1",
+  "position": {
+    "x": 330,
+    "y": 692,
+    "z": 12000,
+    "height": 352,
+    "width": 916,
+    "tabOrder": 12000
+  },
+  "visual": {
+    "visualType": "tableEx",
+    "query": {
+      "queryState": {
+        "Values": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "billing_backlog"
+                    }
+                  },
+                  "Property": "delivered_not_billed_value"
+                }
+              },
+              "queryRef": "Sum(billing_backlog.delivered_not_billed_value)",
+              "nativeQueryRef": "delivered_not_billed_value"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "billing_backlog"
+                    }
+                  },
+                  "Property": "item_number"
+                }
+              },
+              "queryRef": "billing_backlog.item_number",
+              "nativeQueryRef": "item_number"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "billing_backlog"
+                    }
+                  },
+                  "Property": "sales_order_number"
+                }
+              },
+              "queryRef": "billing_backlog.sales_order_number",
+              "nativeQueryRef": "sales_order_number"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "billing_backlog"
+                    }
+                  },
+                  "Property": "sold_to_customer"
+                }
+              },
+              "queryRef": "billing_backlog.sold_to_customer",
+              "nativeQueryRef": "sold_to_customer"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "billing_backlog"
+                    }
+                  },
+                  "Property": "last_goods_issue_date"
+                }
+              },
+              "queryRef": "billing_backlog.last_goods_issue_date",
+              "nativeQueryRef": "last_goods_issue_date"
+            }
+          ]
+        }
+      }
+    },
+    "visualContainerObjects": {
+      "stylePreset": [
+        {
+          "properties": {
+            "name": {
+              "expr": {
+                "Literal": {
+                  "Value": "'AlternatingRowsNew'"
+                }
+              }
+            }
+          }
+        }
+      ],
+      "title": [
+        {
+          "properties": {
+            "text": {
+              "expr": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "_measures"
+                    }
+                  },
+                  "Property": "Title - To bill"
+                }
+              }
+            }
+          }
+        }
+      ]
+    },
+    "drillFilterOtherVisuals": true
+  }
+}

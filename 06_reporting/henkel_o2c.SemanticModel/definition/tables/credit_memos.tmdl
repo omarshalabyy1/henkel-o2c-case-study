@@ -1,0 +1,103 @@
+table credit_memos
+	lineageTag: acd7aa73-f583-499d-a826-cec06f25a755
+
+	column billing_document_number
+		dataType: string
+		lineageTag: 94946969-d088-4ab3-a94e-c5f0d3599a91
+		summarizeBy: none
+		sourceColumn: billing_document_number
+
+		annotation SummarizationSetBy = Automatic
+
+	column billing_item_number
+		dataType: string
+		lineageTag: a2f74744-ede5-4e2f-96bf-0a2ae06580d1
+		summarizeBy: none
+		sourceColumn: billing_item_number
+
+		annotation SummarizationSetBy = Automatic
+
+	column billing_date
+		dataType: dateTime
+		formatString: yyyy-mm-dd
+		lineageTag: f652ec9f-3a12-4916-85b4-052180f9c78f
+		summarizeBy: none
+		sourceColumn: billing_date
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column payer_customer
+		dataType: string
+		lineageTag: 3eccaaf6-64a7-4103-b5c3-3980140719a5
+		summarizeBy: none
+		sourceColumn: payer_customer
+
+		annotation SummarizationSetBy = Automatic
+
+	column reversed_invoice
+		dataType: string
+		lineageTag: a5b24db1-b80b-4481-b8b4-3249feec76b4
+		summarizeBy: none
+		sourceColumn: reversed_invoice
+
+		annotation SummarizationSetBy = Automatic
+
+	column material_number
+		dataType: string
+		lineageTag: 1dfc3141-1b91-4750-ab86-06d2f6b84849
+		summarizeBy: none
+		sourceColumn: material_number
+
+		annotation SummarizationSetBy = Automatic
+
+	column document_currency
+		dataType: string
+		lineageTag: 82f09791-00ce-42d3-8107-bfa23f394e0f
+		summarizeBy: none
+		sourceColumn: document_currency
+
+		annotation SummarizationSetBy = Automatic
+
+	column unit_of_measure
+		dataType: string
+		lineageTag: 653ff108-eb98-46f2-84e5-0275b3de9999
+		summarizeBy: none
+		sourceColumn: unit_of_measure
+
+		annotation SummarizationSetBy = Automatic
+
+	column returned_quantity
+		dataType: double
+		lineageTag: 1b56f810-baf2-47ac-aa2a-7370d0d47877
+		summarizeBy: sum
+		sourceColumn: returned_quantity
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column credited_value
+		dataType: double
+		lineageTag: 60266c7a-725c-493f-98cc-604655ea014e
+		summarizeBy: sum
+		sourceColumn: credited_value
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	partition credit_memos = m
+		mode: import
+		source =
+				let
+				    Source = Odbc.DataSource("Driver={DuckDB Driver};Database=" & DuckDbPath & ";access_mode=read_only", [HierarchicalNavigation=true]),
+				    data_Database = Source{[Name="data",Kind="Database"]}[Data],
+				    mart_sales_Schema = data_Database{[Name="mart_sales",Kind="Schema"]}[Data],
+				    credit_memos_View = mart_sales_Schema{[Name="credit_memos",Kind="View"]}[Data]
+				in
+				    credit_memos_View
+
+	annotation PBI_ResultType = Table
+

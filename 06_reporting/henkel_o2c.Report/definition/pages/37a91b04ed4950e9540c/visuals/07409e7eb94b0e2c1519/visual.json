@@ -1,0 +1,100 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.14.0/schema.json",
+  "name": "07409e7eb94b0e2c1519",
+  "position": {
+    "x": 858,
+    "y": 690,
+    "z": 13000,
+    "height": 354,
+    "width": 496,
+    "tabOrder": 13000
+  },
+  "visual": {
+    "visualType": "tableEx",
+    "query": {
+      "queryState": {
+        "Values": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "rejected_order_value"
+                    }
+                  },
+                  "Property": "description"
+                }
+              },
+              "queryRef": "rejected_order_value.description",
+              "nativeQueryRef": "description"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "rejected_order_value"
+                    }
+                  },
+                  "Property": "rejection_reason"
+                }
+              },
+              "queryRef": "rejected_order_value.rejection_reason",
+              "nativeQueryRef": "rejection_reason"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "rejected_order_value"
+                    }
+                  },
+                  "Property": "rejected_lines"
+                }
+              },
+              "queryRef": "Sum(rejected_order_value.rejected_lines)",
+              "nativeQueryRef": "rejected_lines"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "rejected_order_value"
+                    }
+                  },
+                  "Property": "rejected_value"
+                }
+              },
+              "queryRef": "Sum(rejected_order_value.rejected_value)",
+              "nativeQueryRef": "rejected_value"
+            }
+          ]
+        }
+      }
+    },
+    "visualContainerObjects": {
+      "title": [
+        {
+          "properties": {
+            "text": {
+              "expr": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "_measures"
+                    }
+                  },
+                  "Property": "Title - Rejected"
+                }
+              }
+            }
+          }
+        }
+      ]
+    },
+    "drillFilterOtherVisuals": true
+  }
+}

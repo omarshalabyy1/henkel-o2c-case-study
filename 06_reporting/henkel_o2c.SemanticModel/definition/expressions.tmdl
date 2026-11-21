@@ -1,0 +1,7 @@
+expression DuckDbPath = "C:\path\to\henkel_practice\data.duckdb" meta [IsParameterQuery=true, Type="Text", IsParameterQueryRequired=true]
+	lineageTag: 6cd249bd-396e-4360-bfad-f4c4898f8267
+
+	annotation PBI_ResultType = Text
+
+	annotation PBI_NavigationStepName = Navigation
+

@@ -1,0 +1,70 @@
+table open_order_backlog
+	lineageTag: 9e9f7218-e05b-4c48-a441-b4b1a40767ac
+
+	column sales_order_number
+		dataType: string
+		lineageTag: 390cedcb-cb80-423e-81cf-ef004337b26e
+		summarizeBy: none
+		sourceColumn: sales_order_number
+
+		annotation SummarizationSetBy = Automatic
+
+	column sold_to_customer
+		dataType: string
+		lineageTag: 44c39397-c19d-4fae-b145-da748b46bf6a
+		summarizeBy: none
+		sourceColumn: sold_to_customer
+
+		annotation SummarizationSetBy = Automatic
+
+	column currency
+		dataType: string
+		lineageTag: 6fd1303f-8a08-4ec6-be8c-cfd184b4fceb
+		summarizeBy: none
+		sourceColumn: currency
+
+		annotation SummarizationSetBy = Automatic
+
+	column customer_requested_delivery_date
+		dataType: dateTime
+		formatString: yyyy-mm-dd
+		lineageTag: 2a1fcd67-fcf4-4de9-bc5c-909df35bda05
+		summarizeBy: none
+		sourceColumn: customer_requested_delivery_date
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column days_past_requested_date
+		dataType: int64
+		formatString: 0
+		lineageTag: 6ea5ae94-c7d6-4ea5-95e7-00b99f5dadb8
+		summarizeBy: none
+		sourceColumn: days_past_requested_date
+
+		annotation SummarizationSetBy = Automatic
+
+	column open_to_ship_value
+		dataType: double
+		lineageTag: 8b5421e6-9bc1-4247-a282-e65ae2064e22
+		summarizeBy: sum
+		sourceColumn: open_to_ship_value
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	partition open_order_backlog = m
+		mode: import
+		source =
+				let
+				    Source = Odbc.DataSource("Driver={DuckDB Driver};Database=" & DuckDbPath & ";access_mode=read_only", [HierarchicalNavigation=true]),
+				    data_Database = Source{[Name="data",Kind="Database"]}[Data],
+				    mart_operations_Schema = data_Database{[Name="mart_operations",Kind="Schema"]}[Data],
+				    open_order_backlog_View = mart_operations_Schema{[Name="open_order_backlog",Kind="View"]}[Data]
+				in
+				    open_order_backlog_View
+
+	annotation PBI_ResultType = Table
+

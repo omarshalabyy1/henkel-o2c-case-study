@@ -1,0 +1,67 @@
+table order_intake
+	lineageTag: 11795563-2f23-427e-8e7c-f4968c25c10c
+
+	column year_month
+		dataType: string
+		lineageTag: 1797ab00-9d32-4117-b6ed-eb9def2881cb
+		summarizeBy: none
+		sourceColumn: year_month
+
+		annotation SummarizationSetBy = Automatic
+
+	column division
+		dataType: string
+		lineageTag: 27e019fa-5866-43c7-8964-8779b7da1eca
+		summarizeBy: none
+		sourceColumn: division
+
+		annotation SummarizationSetBy = Automatic
+
+	column material_group
+		dataType: string
+		lineageTag: 78eb752f-aa20-4327-9dcb-a0e4cc58e461
+		summarizeBy: none
+		sourceColumn: material_group
+
+		annotation SummarizationSetBy = Automatic
+
+	column currency
+		dataType: string
+		lineageTag: 0c77f368-e8cf-4490-a29e-8d3a0eb93021
+		summarizeBy: none
+		sourceColumn: currency
+
+		annotation SummarizationSetBy = Automatic
+
+	column order_lines
+		dataType: int64
+		formatString: 0
+		lineageTag: b8d8673c-197a-4ba4-9e79-476afd2cf1a0
+		summarizeBy: sum
+		sourceColumn: order_lines
+
+		annotation SummarizationSetBy = Automatic
+
+	column order_intake_value
+		dataType: double
+		lineageTag: 6edb6ada-b479-4401-8792-8ba199ae31b7
+		summarizeBy: sum
+		sourceColumn: order_intake_value
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	partition order_intake = m
+		mode: import
+		source =
+				let
+				    Source = Odbc.DataSource("Driver={DuckDB Driver};Database=" & DuckDbPath & ";access_mode=read_only", [HierarchicalNavigation=true]),
+				    data_Database = Source{[Name="data",Kind="Database"]}[Data],
+				    mart_sales_Schema = data_Database{[Name="mart_sales",Kind="Schema"]}[Data],
+				    order_intake_View = mart_sales_Schema{[Name="order_intake",Kind="View"]}[Data]
+				in
+				    order_intake_View
+
+	annotation PBI_ResultType = Table
+

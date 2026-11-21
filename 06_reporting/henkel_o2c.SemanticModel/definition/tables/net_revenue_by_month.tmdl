@@ -1,0 +1,71 @@
+table net_revenue_by_month
+	lineageTag: cc8ae253-d416-46b7-a2d2-55395f25f02a
+
+	column year_month
+		dataType: string
+		lineageTag: 82e3d60f-faa0-40ab-a892-177ddd74b2a7
+		summarizeBy: none
+		sourceColumn: year_month
+
+		annotation SummarizationSetBy = Automatic
+
+	column document_currency
+		dataType: string
+		lineageTag: 8d5d5f46-1eaf-4d18-b55c-6e6cbc83d200
+		summarizeBy: none
+		sourceColumn: document_currency
+
+		annotation SummarizationSetBy = Automatic
+
+	column invoices
+		dataType: int64
+		formatString: 0
+		lineageTag: 6427d20c-f357-44b0-adf0-28c5c9fa36c1
+		summarizeBy: sum
+		sourceColumn: invoices
+
+		annotation SummarizationSetBy = Automatic
+
+	column invoiced_value
+		dataType: double
+		lineageTag: 7d9fec99-b624-456f-9af7-a3368b404336
+		summarizeBy: sum
+		sourceColumn: invoiced_value
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column credited_value
+		dataType: double
+		lineageTag: 51bbe318-15be-47a6-aac0-fa0eea4e6916
+		summarizeBy: sum
+		sourceColumn: credited_value
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column net_revenue
+		dataType: double
+		lineageTag: 156db514-64e5-4c54-a632-36742aacc7e1
+		summarizeBy: sum
+		sourceColumn: net_revenue
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	partition net_revenue_by_month = m
+		mode: import
+		source =
+				let
+				    Source = Odbc.DataSource("Driver={DuckDB Driver};Database=" & DuckDbPath & ";access_mode=read_only", [HierarchicalNavigation=true]),
+				    data_Database = Source{[Name="data",Kind="Database"]}[Data],
+				    mart_finance_Schema = data_Database{[Name="mart_finance",Kind="Schema"]}[Data],
+				    net_revenue_by_month_View = mart_finance_Schema{[Name="net_revenue_by_month",Kind="View"]}[Data]
+				in
+				    net_revenue_by_month_View
+
+	annotation PBI_ResultType = Table
+

@@ -1,0 +1,32 @@
+model Model
+	culture: en-US
+	defaultPowerBIDataSourceVersion: powerBI_V3
+	sourceQueryCulture: en-US
+	valueFilterBehavior: independent
+	dataAccessOptions
+		legacyRedirects
+		returnErrorValuesAsNull
+
+annotation __PBI_TimeIntelligenceEnabled = 0
+
+annotation PBI_QueryOrder = ["billing_backlog","days_to_pay","net_revenue_by_month","open_receivables","on_time_delivery","open_order_backlog","credit_memos","order_intake","net_revenue_by_division","rejected_order_value","currency","on_time_delivery_by_line","DuckDbPath"]
+
+annotation PBI_ProTooling = ["TMDLView_Desktop","DevMode"]
+
+ref table billing_backlog
+ref table days_to_pay
+ref table net_revenue_by_month
+ref table open_receivables
+ref table on_time_delivery
+ref table open_order_backlog
+ref table credit_memos
+ref table order_intake
+ref table net_revenue_by_division
+ref table rejected_order_value
+ref table currency
+ref table on_time_delivery_by_line
+ref table _measures
+ref table Stage
+
+ref cultureInfo en-US
+

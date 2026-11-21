@@ -1,0 +1,44 @@
+relationship AutoDetected_5af8bc56-2112-4131-82ae-d5f94b420e29
+	fromColumn: order_intake.currency
+	toColumn: currency.currency
+
+relationship AutoDetected_0720f028-d7cd-42a4-a6a4-6ab5342a1fa1
+	fromColumn: on_time_delivery_by_line.currency
+	toColumn: currency.currency
+
+relationship 2c0e6959-5337-5099-6a64-29163f584e3e
+	fromColumn: open_receivables.document_currency
+	toColumn: currency.currency
+
+relationship eadb9263-aaaa-ed2b-fa7a-74d338b3a371
+	fromColumn: net_revenue_by_month.document_currency
+	toColumn: currency.currency
+
+relationship e3c1b269-83ec-e828-794a-260b02d8c5ad
+	fromColumn: credit_memos.document_currency
+	toColumn: currency.currency
+
+relationship bbdac869-3fba-7d9d-0819-d53ebedc9537
+	fromColumn: net_revenue_by_division.document_currency
+	toColumn: currency.currency
+
+relationship 68f94008-41f6-7310-db09-835a062400e7
+	fromColumn: open_order_backlog.currency
+	toColumn: currency.currency
+
+relationship 6f4ab8f3-c9b5-936d-9af6-80baa41a5f5b
+	fromColumn: rejected_order_value.currency
+	toColumn: currency.currency
+
+relationship e6fa73ca-c60c-c893-c539-7544d71f385d
+	fromColumn: billing_backlog.currency
+	toColumn: currency.currency
+
+relationship AutoDetected_2d16fa3c-f5a9-4573-8b75-be4703414233
+	fromColumn: on_time_delivery.currency
+	toColumn: currency.currency
+
+relationship a38f3e30-c99e-4a75-9ef2-d837fe9ccd38
+	fromColumn: days_to_pay.document_currency
+	toColumn: currency.currency
+

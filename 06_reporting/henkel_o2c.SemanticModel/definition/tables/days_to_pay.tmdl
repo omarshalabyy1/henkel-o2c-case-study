@@ -1,0 +1,52 @@
+table days_to_pay
+	lineageTag: 4af1d061-0676-47f7-8f44-9b390cda3df4
+
+	column paid_invoices
+		dataType: int64
+		formatString: 0
+		lineageTag: 33a1aebc-e4e0-4c3b-aee5-02c7b6cccb9c
+		summarizeBy: sum
+		sourceColumn: paid_invoices
+
+		annotation SummarizationSetBy = Automatic
+
+	column avg_days_to_pay
+		dataType: double
+		lineageTag: f69226e1-016c-41a6-bf20-d6bcf498b7aa
+		summarizeBy: none
+		sourceColumn: avg_days_to_pay
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column paid_by_due_date
+		dataType: int64
+		formatString: 0
+		lineageTag: 584f259f-fea8-419d-af3e-c1476a6b1f7a
+		summarizeBy: sum
+		sourceColumn: paid_by_due_date
+
+		annotation SummarizationSetBy = Automatic
+
+	column document_currency
+		dataType: string
+		lineageTag: eea8cb97-cf8f-435d-b482-17e0b47f775c
+		summarizeBy: none
+		sourceColumn: document_currency
+
+		annotation SummarizationSetBy = Automatic
+
+	partition days_to_pay = m
+		mode: import
+		source =
+				let
+				    Source = Odbc.DataSource("Driver={DuckDB Driver};Database=" & DuckDbPath & ";access_mode=read_only", [HierarchicalNavigation=true]),
+				    data_Database = Source{[Name="data",Kind="Database"]}[Data],
+				    mart_finance_Schema = data_Database{[Name="mart_finance",Kind="Schema"]}[Data],
+				    days_to_pay_View = mart_finance_Schema{[Name="days_to_pay",Kind="View"]}[Data]
+				in
+				    days_to_pay_View
+
+	annotation PBI_ResultType = Table
+

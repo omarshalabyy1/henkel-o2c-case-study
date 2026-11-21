@@ -1,0 +1,159 @@
+table _measures
+	lineageTag: 8012e3f6-df12-4610-9259-2f5e02123227
+
+	measure Cur = SELECTEDVALUE ( Currency[currency], "EUR + USD" )
+		displayFolder: Helpers
+		lineageTag: f4873776-9be0-4251-82f2-9b297ba0d3d7
+
+	measure 'Order intake' = IF ( HASONEVALUE ( currency[currency] ), COALESCE ( SUM ( order_intake[order_intake_value] ), 0 ) )
+		formatString: #,0
+		displayFolder: KPIs
+		lineageTag: 96948817-b6c1-4c29-8cae-3bcdc0eeaec4
+
+	measure 'Net revenue' = IF ( HASONEVALUE ( currency[currency] ), COALESCE ( SUM ( net_revenue_by_month[net_revenue] ), 0 ) )
+		formatString: #,0
+		displayFolder: KPIs
+		lineageTag: 5e154b35-5170-448f-b0b5-a46792bc4e34
+
+	measure 'Net revenue by division' = IF ( HASONEVALUE ( currency[currency] ), COALESCE ( SUM ( net_revenue_by_division[net_revenue] ), 0 ) )
+		formatString: #,0
+		displayFolder: KPIs
+		lineageTag: 4921959b-9ac7-43ac-8ede-53c36b753eea
+
+	measure 'Rejected value' = IF ( HASONEVALUE ( currency[currency] ), COALESCE ( SUM ( rejected_order_value[rejected_value] ), 0 ) )
+		formatString: #,0
+		displayFolder: KPIs
+		lineageTag: 590b8845-5043-4ee2-8cd2-361db9baecb1
+
+	measure 'Credited value' = IF ( HASONEVALUE ( currency[currency] ), COALESCE ( SUM ( credit_memos[credited_value] ), 0 ) )
+		formatString: #,0
+		displayFolder: KPIs
+		lineageTag: 1c8bcb25-37eb-4ec8-ae83-02eb9cb9ebcc
+
+	measure 'Open to ship' = IF ( HASONEVALUE ( currency[currency] ), COALESCE ( SUM ( open_order_backlog[open_to_ship_value] ), 0 ) )
+		formatString: #,0
+		displayFolder: KPIs
+		lineageTag: 6099bf1a-c27e-4141-9aa9-7e964ad4bb9f
+
+	measure 'Billing backlog' = IF ( HASONEVALUE ( currency[currency] ), COALESCE ( SUM ( billing_backlog[delivered_not_billed_value] ), 0 ) )
+		formatString: #,0
+		displayFolder: KPIs
+		lineageTag: 2520447d-de90-416f-9083-9e1c0199abfc
+
+	measure 'Open receivables' = IF ( HASONEVALUE ( currency[currency] ), COALESCE ( SUM ( open_receivables[amount_in_document_currency] ), 0 ) )
+		formatString: #,0
+		displayFolder: KPIs
+		lineageTag: 3967735b-5cf3-4588-ad43-ad2665d86e9e
+
+	measure 'Overdue receivables' = CALCULATE ( [Open receivables], open_receivables[days_overdue] > 0 )
+		formatString: #,0
+		displayFolder: KPIs
+		lineageTag: d4e7a0e8-320f-45ef-97af-0b3a400c0719
+
+	measure 'Avg days to pay' = DIVIDE ( SUMX ( days_to_pay, days_to_pay[avg_days_to_pay] * days_to_pay[paid_invoices] ), SUM ( days_to_pay[paid_invoices] ) )
+		formatString: 0.00
+		displayFolder: KPIs
+		lineageTag: 556109c3-087b-470b-b26f-dab96ce9c12a
+
+	measure 'On-time rate' = DIVIDE ( SUM ( on_time_delivery[on_time_lines] ), SUM ( on_time_delivery[fully_shipped_lines] ) )
+		formatString: 0.0%
+		displayFolder: KPIs
+		lineageTag: b491b970-c000-4193-9a82-1399375e7627
+
+	measure 'Worst delay' = MAX ( on_time_delivery[worst_days_late] )
+		formatString: 0
+		displayFolder: KPIs
+		lineageTag: 86ea339a-14d9-47ad-9dbf-1508b70615d1
+
+	measure 'Past due unshipped' = COALESCE ( SUM ( on_time_delivery[past_due_unshipped_lines] ), 0 )
+		formatString: 0
+		displayFolder: KPIs
+		lineageTag: 562aaa56-2437-4a98-a1af-5e9f5d1dd884
+
+	measure 'Story headline' = [Cur] & ": " & FORMAT ( COALESCE ( [Open to ship], 0 ), "#,0" ) & " to ship, " & FORMAT ( COALESCE ( [Billing backlog], 0 ), "#,0" ) & " shipped not billed, " & FORMAT ( COALESCE ( [Overdue receivables], 0 ), "#,0" ) & " overdue"
+		displayFolder: Titles
+		lineageTag: 66ea2775-d7b3-4582-b42e-7546e20b1efa
+
+	measure 'Title - Revenue peak' =
+			VAR t = TOPN ( 1, VALUES ( net_revenue_by_month[year_month] ), [Net revenue] )
+			RETURN "Net revenue peaked in " & MAXX ( t, net_revenue_by_month[year_month] ) & " at " & FORMAT ( CALCULATE ( [Net revenue], t ), "#,0" ) & " " & [Cur]
+		displayFolder: Titles
+		lineageTag: 6f85d552-c07c-4a60-a6ed-e3f81d688133
+
+	measure 'Title - On time' = FORMAT ( SUM ( on_time_delivery[on_time_lines] ), "0" ) & " of " & FORMAT ( SUM ( on_time_delivery[fully_shipped_lines] ), "0" ) & " shipped lines left on time, worst " & [Worst delay] & " days late"
+		displayFolder: Titles
+		lineageTag: 45d25c35-2268-4a8b-bd2e-faa5a8286ac1
+
+	measure 'Title - Invoiced and credited' = FORMAT ( SUM ( net_revenue_by_month[invoiced_value] ), "#,0" ) & " " & [Cur] & " invoiced, " & FORMAT ( -COALESCE ( SUM ( net_revenue_by_month[credited_value] ), 0 ), "#,0" ) & " " & [Cur] & " credited back"
+		displayFolder: Titles
+		lineageTag: 71749fcf-a775-4b27-84d3-bdfad8bfae49
+
+	measure 'Title - Overdue' = FORMAT ( COALESCE ( [Overdue receivables], 0 ), "#,0" ) & " of " & FORMAT ( COALESCE ( [Open receivables], 0 ), "#,0" ) & " " & [Cur] & " open receivables is overdue"
+		displayFolder: Titles
+		lineageTag: 1e0872ac-3eb8-40a5-bcc5-5b072499f5f1
+
+	measure 'Title - Overdue share' = FORMAT ( DIVIDE ( [Overdue receivables], [Open receivables], 0 ), "0%" ) & " of open receivables is overdue"
+		displayFolder: Titles
+		lineageTag: 6c4a1313-41c0-4c65-bf65-f778e49dfa4c
+
+	measure 'Title - To bill' = FORMAT ( COALESCE ( [Billing backlog], 0 ), "#,0" ) & " " & [Cur] & " is delivered but not yet billed"
+		displayFolder: Titles
+		lineageTag: 0aa56992-2074-4593-9d32-58f948336c75
+
+	measure 'Title - Intake peak' =
+			VAR t = TOPN ( 1, VALUES ( order_intake[year_month] ), [Order intake] )
+			RETURN "Order intake (net of return requests) peaked in " & MAXX ( t, order_intake[year_month] ) & " at " & FORMAT ( CALCULATE ( [Order intake], t ), "#,0" ) & " " & [Cur]
+		displayFolder: Titles
+		lineageTag: 2d5227f7-14a4-46de-a304-716c9c7aac3c
+
+	measure 'Title - Division' =
+			VAR t = TOPN ( 1, VALUES ( net_revenue_by_division[division] ), [Net revenue by division] )
+			VAR v = CALCULATE ( [Net revenue by division], t )
+			RETURN "Division " & MAXX ( t, net_revenue_by_division[division] ) & " brings " & FORMAT ( v, "#,0" ) & " " & [Cur] & ", " & FORMAT ( DIVIDE ( v, [Net revenue by division] ), "0%" ) & " of net revenue"
+		displayFolder: Titles
+		lineageTag: 1324913a-e45d-4fdd-b0e5-2551b5d53e7d
+
+	measure 'Title - Mismatch' =
+			VAR x = CALCULATE ( [Net revenue by division], FILTER ( net_revenue_by_division, ( net_revenue_by_division[division] = "HA" && net_revenue_by_division[material_group] = "ADHESIV" ) || ( net_revenue_by_division[division] = "AD" && net_revenue_by_division[material_group] = "HAIRPRO" ) ) )
+			RETURN FORMAT ( COALESCE ( x, 0 ), "#,0" ) & " " & [Cur] & " sold under the other division's material group"
+		displayFolder: Titles
+		lineageTag: a357cc77-191c-4dcc-a863-738cc09b199f
+
+	measure 'Title - Rejected' = FORMAT ( COALESCE ( [Rejected value], 0 ), "#,0" ) & " " & [Cur] & " cancelled by customers (" & COALESCE ( SUM ( rejected_order_value[rejected_lines] ), 0 ) & IF ( SUM ( rejected_order_value[rejected_lines] ) = 1, " line)", " lines)" )
+		displayFolder: Titles
+		lineageTag: d6792052-3042-41d8-9b45-9b866ef9c38d
+
+	measure 'Title - Credit memos' = FORMAT ( -COALESCE ( SUM ( credit_memos[returned_quantity] ), 0 ), "#,0" ) & " units returned, " & FORMAT ( -COALESCE ( [Credited value], 0 ), "#,0" ) & " " & [Cur] & " credited"
+		displayFolder: Titles
+		lineageTag: 2a55cdcf-957d-4cf0-874c-f014a74d1fa0
+
+	measure 'Money waiting' = SWITCH ( SELECTEDVALUE ( Stage[Order] ), 1, [Open to ship], 2, [Billing backlog], 3, [Open receivables] )
+		formatString: #,0
+		displayFolder: KPIs
+		lineageTag: 902d8ace-b769-45fd-a6a6-9fa337a13109
+
+	measure 'Title - Waiting' = "Where the money waits, in " & [Cur]
+		displayFolder: Titles
+		lineageTag: 53e28ada-b90c-42f6-9656-b7ce1c382b8b
+
+	measure 'Label - Days to pay' = "paid invoices only (" & FORMAT ( COALESCE ( SUM ( days_to_pay[paid_invoices] ), 0 ), "0" ) & " of " & FORMAT ( COALESCE ( SUM ( net_revenue_by_month[invoices] ), 0 ), "0" ) & ")"
+		displayFolder: Titles
+		lineageTag: c1440dce-3b36-432f-afd5-251d5bf8f983
+
+	column Column
+		formatString: 0
+		lineageTag: d5bad7cb-9e26-424f-bba9-770cee6b4ee4
+		summarizeBy: sum
+		isNameInferred
+		sourceColumn: [Column]
+
+		annotation SummarizationSetBy = Automatic
+
+	partition _measures = calculated
+		mode: import
+		source = Row("Column", BLANK())
+
+	annotation PBI_Id = 9bc038e4237a4134a759a699ceb0f092
+
+	annotation 436ba87b-9c83-4389-a31b-ebd06a36be98 = {"Expression":""}
+

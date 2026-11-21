@@ -1,0 +1,138 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/report/3.3.0/schema.json",
+  "themeCollection": {
+    "baseTheme": {
+      "name": "Fluent2-CY26SU10",
+      "reportVersionAtImport": {
+        "visual": "2.14.0",
+        "report": "3.4.0",
+        "page": "2.3.1"
+      },
+      "type": "SharedResources"
+    },
+    "customTheme": {
+      "name": "Henkel_O2C04953132064291943.json",
+      "reportVersionAtImport": {
+        "visual": "2.14.0",
+        "report": "3.4.0",
+        "page": "2.3.1"
+      },
+      "type": "RegisteredResources"
+    }
+  },
+  "objects": {
+    "section": [
+      {
+        "properties": {
+          "verticalAlignment": {
+            "expr": {
+              "Literal": {
+                "Value": "'Middle'"
+              }
+            }
+          }
+        }
+      }
+    ],
+    "outspacePane": [
+      {
+        "properties": {
+          "expanded": {
+            "expr": {
+              "Literal": {
+                "Value": "false"
+              }
+            }
+          }
+        }
+      }
+    ]
+  },
+  "resourcePackages": [
+    {
+      "name": "SharedResources",
+      "type": "SharedResources",
+      "items": [
+        {
+          "name": "Fluent2-CY26SU10",
+          "path": "BaseThemes/Fluent2-CY26SU10.json",
+          "type": "BaseTheme"
+        }
+      ]
+    },
+    {
+      "name": "RegisteredResources",
+      "type": "RegisteredResources",
+      "items": [
+        {
+          "name": "finance08801591455081648.png",
+          "path": "finance08801591455081648.png",
+          "type": "Image"
+        },
+        {
+          "name": "Henkel_Logo_-_Colored_-_zonalo05650224465789444.svg",
+          "path": "Henkel_Logo_-_Colored_-_zonalo05650224465789444.svg",
+          "type": "Image"
+        },
+        {
+          "name": "Henkel_O2C04953132064291943.json",
+          "path": "Henkel_O2C04953132064291943.json",
+          "type": "CustomTheme"
+        },
+        {
+          "name": "income9674107171140218.png",
+          "path": "income9674107171140218.png",
+          "type": "Image"
+        },
+        {
+          "name": "landing8063146068514696.gif",
+          "path": "landing8063146068514696.gif",
+          "type": "Image"
+        },
+        {
+          "name": "leader20129637185223115.png",
+          "path": "leader20129637185223115.png",
+          "type": "Image"
+        },
+        {
+          "name": "leader8972434186014736.png",
+          "path": "leader8972434186014736.png",
+          "type": "Image"
+        },
+        {
+          "name": "operations5919763331950725.png",
+          "path": "operations5919763331950725.png",
+          "type": "Image"
+        },
+        {
+          "name": "order-tracking011697456274135654.png",
+          "path": "order-tracking011697456274135654.png",
+          "type": "Image"
+        },
+        {
+          "name": "overview40306331730943834.png",
+          "path": "overview40306331730943834.png",
+          "type": "Image"
+        },
+        {
+          "name": "sales_(1)7797761404082959.png",
+          "path": "sales_(1)7797761404082959.png",
+          "type": "Image"
+        },
+        {
+          "name": "sales3059367772566022.png",
+          "path": "sales3059367772566022.png",
+          "type": "Image"
+        }
+      ]
+    }
+  ],
+  "settings": {
+    "useStylableVisualContainerHeader": true,
+    "exportDataMode": "AllowSummarized",
+    "defaultDrillFilterOtherVisuals": true,
+    "allowChangeFilterTypes": true,
+    "useEnhancedTooltips": true,
+    "useDefaultAggregateDisplayName": true
+  }
+}

@@ -1,0 +1,129 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.14.0/schema.json",
+  "name": "8e571e9114be096c983f",
+  "position": {
+    "x": 1406,
+    "y": 708,
+    "z": 14000,
+    "height": 318,
+    "width": 480,
+    "tabOrder": 14000
+  },
+  "visual": {
+    "visualType": "tableEx",
+    "query": {
+      "queryState": {
+        "Values": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "credit_memos"
+                    }
+                  },
+                  "Property": "billing_document_number"
+                }
+              },
+              "queryRef": "credit_memos.billing_document_number",
+              "nativeQueryRef": "billing_document_number"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "credit_memos"
+                    }
+                  },
+                  "Property": "credited_value"
+                }
+              },
+              "queryRef": "Sum(credit_memos.credited_value)",
+              "nativeQueryRef": "credited_value"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "credit_memos"
+                    }
+                  },
+                  "Property": "reversed_invoice"
+                }
+              },
+              "queryRef": "credit_memos.reversed_invoice",
+              "nativeQueryRef": "reversed_invoice"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "credit_memos"
+                    }
+                  },
+                  "Property": "returned_quantity"
+                }
+              },
+              "queryRef": "Sum(credit_memos.returned_quantity)",
+              "nativeQueryRef": "returned_quantity"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "credit_memos"
+                    }
+                  },
+                  "Property": "billing_date"
+                }
+              },
+              "queryRef": "credit_memos.billing_date",
+              "nativeQueryRef": "billing_date"
+            }
+          ]
+        }
+      }
+    },
+    "objects": {
+      "total": [
+        {
+          "properties": {
+            "totals": {
+              "expr": {
+                "Literal": {
+                  "Value": "false"
+                }
+              }
+            }
+          }
+        }
+      ]
+    },
+    "visualContainerObjects": {
+      "title": [
+        {
+          "properties": {
+            "text": {
+              "expr": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "_measures"
+                    }
+                  },
+                  "Property": "Title - Credit memos"
+                }
+              }
+            }
+          }
+        }
+      ]
+    },
+    "drillFilterOtherVisuals": true
+  }
+}

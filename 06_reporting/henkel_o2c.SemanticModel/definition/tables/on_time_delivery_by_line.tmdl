@@ -1,0 +1,102 @@
+table on_time_delivery_by_line
+	lineageTag: e417562c-7d7d-458a-aea1-ee629c0758c9
+
+	column sales_order_number
+		dataType: string
+		lineageTag: 9fbd4a8a-3cdd-46ca-b7aa-8cf093b435fd
+		summarizeBy: none
+		sourceColumn: sales_order_number
+
+		annotation SummarizationSetBy = Automatic
+
+	column item_number
+		dataType: string
+		lineageTag: 46fdeaae-4708-4a48-952a-8d58e26b9883
+		summarizeBy: none
+		sourceColumn: item_number
+
+		annotation SummarizationSetBy = Automatic
+
+	column sold_to_customer
+		dataType: string
+		lineageTag: fbe7a0f2-a96c-4f98-a897-c3ad4e481cce
+		summarizeBy: none
+		sourceColumn: sold_to_customer
+
+		annotation SummarizationSetBy = Automatic
+
+	column currency
+		dataType: string
+		lineageTag: 03c136d2-4a52-42b0-936c-4b57018da364
+		summarizeBy: none
+		sourceColumn: currency
+
+		annotation SummarizationSetBy = Automatic
+
+	column customer_requested_delivery_date
+		dataType: dateTime
+		formatString: yyyy-mm-dd
+		lineageTag: 4a340a14-8268-42a1-b20a-116e9c3ca71b
+		summarizeBy: none
+		sourceColumn: customer_requested_delivery_date
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column last_goods_issue_date
+		dataType: dateTime
+		formatString: yyyy-mm-dd
+		lineageTag: 1f49d646-2854-4697-a6b9-8445305defd8
+		summarizeBy: none
+		sourceColumn: last_goods_issue_date
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column days_late
+		dataType: int64
+		formatString: 0
+		lineageTag: 945c434d-2d42-4237-9000-865be29abdcc
+		summarizeBy: none
+		sourceColumn: days_late
+
+		annotation SummarizationSetBy = Automatic
+
+	column is_on_time
+		dataType: string
+		lineageTag: 8769183c-df1d-4824-8c62-44e3a0b97ff8
+		summarizeBy: none
+		sourceColumn: is_on_time
+
+		annotation SummarizationSetBy = Automatic
+
+	column is_past_due_unshipped
+		dataType: string
+		lineageTag: f3408f90-35e2-4f54-8747-e0c194470022
+		summarizeBy: none
+		sourceColumn: is_past_due_unshipped
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Delivery status' = SWITCH ( LOWER ( on_time_delivery_by_line[is_on_time] ), "true", "On time", "false", "Late", BLANK () )
+		dataType: string
+		lineageTag: 0d795f62-76fe-48f6-8006-e7192cf65ed9
+		summarizeBy: none
+
+		annotation SummarizationSetBy = Automatic
+
+	partition on_time_delivery_by_line = m
+		mode: import
+		source =
+				let
+				    Source = Odbc.DataSource("Driver={DuckDB Driver};Database=" & DuckDbPath & ";access_mode=read_only", [HierarchicalNavigation=true]),
+				    data_Database = Source{[Name="data",Kind="Database"]}[Data],
+				    mart_operations_Schema = data_Database{[Name="mart_operations",Kind="Schema"]}[Data],
+				    on_time_delivery_by_line_View = mart_operations_Schema{[Name="on_time_delivery_by_line",Kind="View"]}[Data]
+				in
+				    on_time_delivery_by_line_View
+
+	annotation PBI_ResultType = Table
+

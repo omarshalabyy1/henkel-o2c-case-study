@@ -1,0 +1,24 @@
+table currency
+	lineageTag: 1ba016b4-195f-44ac-a78e-7e454e9ec32b
+
+	column currency
+		dataType: string
+		lineageTag: 927f441d-42c3-4639-9d9f-70583fb91c53
+		summarizeBy: none
+		sourceColumn: currency
+
+		annotation SummarizationSetBy = Automatic
+
+	partition currency = m
+		mode: import
+		source =
+				let
+				    Source = Odbc.DataSource("Driver={DuckDB Driver};Database=" & DuckDbPath & ";access_mode=read_only", [HierarchicalNavigation=true]),
+				    data_Database = Source{[Name="data",Kind="Database"]}[Data],
+				    mart_shared_Schema = data_Database{[Name="mart_shared",Kind="Schema"]}[Data],
+				    currency_View = mart_shared_Schema{[Name="currency",Kind="View"]}[Data]
+				in
+				    currency_View
+
+	annotation PBI_ResultType = Table
+

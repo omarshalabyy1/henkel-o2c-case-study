@@ -1,0 +1,11 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/gitIntegration/platformProperties/2.0.0/schema.json",
+  "metadata": {
+    "type": "Report",
+    "displayName": "henkel_o2c"
+  },
+  "config": {
+    "version": "2.0",
+    "logicalId": "89306dd2-ec12-4b2f-9d1f-846f0c0a9041"
+  }
+}

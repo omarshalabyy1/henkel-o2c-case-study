@@ -1,0 +1,133 @@
+createOrReplace
+
+	ref table _measures
+
+		measure 'Cur' = SELECTEDVALUE ( Currency[currency], "EUR + USD" )
+			displayFolder: Helpers
+
+		measure 'Order intake' = IF ( HASONEVALUE ( currency[currency] ), COALESCE ( SUM ( order_intake[order_intake_value] ), 0 ) )
+			formatString: #,0
+			displayFolder: KPIs
+
+		measure 'Net revenue' = IF ( HASONEVALUE ( currency[currency] ), COALESCE ( SUM ( net_revenue_by_month[net_revenue] ), 0 ) )
+			formatString: #,0
+			displayFolder: KPIs
+
+		measure 'Net revenue by division' = IF ( HASONEVALUE ( currency[currency] ), COALESCE ( SUM ( net_revenue_by_division[net_revenue] ), 0 ) )
+			formatString: #,0
+			displayFolder: KPIs
+
+		measure 'Rejected value' = IF ( HASONEVALUE ( currency[currency] ), COALESCE ( SUM ( rejected_order_value[rejected_value] ), 0 ) )
+			formatString: #,0
+			displayFolder: KPIs
+
+		measure 'Credited value' = IF ( HASONEVALUE ( currency[currency] ), COALESCE ( SUM ( credit_memos[credited_value] ), 0 ) )
+			formatString: #,0
+			displayFolder: KPIs
+
+		measure 'Open to ship' = IF ( HASONEVALUE ( currency[currency] ), COALESCE ( SUM ( open_order_backlog[open_to_ship_value] ), 0 ) )
+			formatString: #,0
+			displayFolder: KPIs
+
+
+		measure 'Billing backlog' = IF ( HASONEVALUE ( currency[currency] ), COALESCE ( SUM ( billing_backlog[delivered_not_billed_value] ), 0 ) )
+			formatString: #,0
+			displayFolder: KPIs
+
+		measure 'Open receivables' = IF ( HASONEVALUE ( currency[currency] ), COALESCE ( SUM ( open_receivables[amount_in_document_currency] ), 0 ) )
+			formatString: #,0
+			displayFolder: KPIs
+
+		measure 'Overdue receivables' = CALCULATE ( [Open receivables], open_receivables[days_overdue] > 0 )
+			formatString: #,0
+			displayFolder: KPIs
+
+
+		measure 'Avg days to pay' = DIVIDE ( SUMX ( days_to_pay, days_to_pay[avg_days_to_pay] * days_to_pay[paid_invoices] ), SUM ( days_to_pay[paid_invoices] ) )
+			formatString: 0.00
+			displayFolder: KPIs
+
+		measure 'On-time rate' = DIVIDE ( SUM ( on_time_delivery[on_time_lines] ), SUM ( on_time_delivery[fully_shipped_lines] ) )
+			formatString: 0.0%
+			displayFolder: KPIs
+
+		measure 'Worst delay' = MAX ( on_time_delivery[worst_days_late] )
+			formatString: 0
+			displayFolder: KPIs
+
+		measure 'Past due unshipped' = COALESCE ( SUM ( on_time_delivery[past_due_unshipped_lines] ), 0 )
+			formatString: 0
+			displayFolder: KPIs
+
+		measure 'Label - Days to pay' = "paid invoices only (" & FORMAT ( COALESCE ( SUM ( days_to_pay[paid_invoices] ), 0 ), "0" ) & " of " & FORMAT ( COALESCE ( SUM ( net_revenue_by_month[invoices] ), 0 ), "0" ) & ")"
+			displayFolder: Titles
+
+		measure 'Story headline' = [Cur] & ": " & FORMAT ( COALESCE ( [Open to ship], 0 ), "#,0" ) & " to ship, " & FORMAT ( COALESCE ( [Billing backlog], 0 ), "#,0" ) & " shipped not billed, " & FORMAT ( COALESCE ( [Overdue receivables], 0 ), "#,0" ) & " overdue"
+			displayFolder: Titles
+
+		measure 'Money waiting' = SWITCH ( SELECTEDVALUE ( Stage[Order] ), 1, [Open to ship], 2, [Billing backlog], 3, [Open receivables] )
+			formatString: #,0
+			displayFolder: KPIs
+
+		measure 'Title - Waiting' = "Where the money waits, in " & [Cur]
+			displayFolder: Titles
+
+		measure 'Title - Revenue peak' =
+				VAR t = TOPN ( 1, VALUES ( net_revenue_by_month[year_month] ), [Net revenue] )
+				RETURN "Net revenue peaked in " & MAXX ( t, net_revenue_by_month[year_month] ) & " at " & FORMAT ( CALCULATE ( [Net revenue], t ), "#,0" ) & " " & [Cur]
+			displayFolder: Titles
+
+		measure 'Title - On time' = FORMAT ( SUM ( on_time_delivery[on_time_lines] ), "0" ) & " of " & FORMAT ( SUM ( on_time_delivery[fully_shipped_lines] ), "0" ) & " shipped lines left on time, worst " & [Worst delay] & " days late"
+			displayFolder: Titles
+
+
+		measure 'Title - Invoiced and credited' = FORMAT ( SUM ( net_revenue_by_month[invoiced_value] ), "#,0" ) & " " & [Cur] & " invoiced, " & FORMAT ( -COALESCE ( SUM ( net_revenue_by_month[credited_value] ), 0 ), "#,0" ) & " " & [Cur] & " credited back"
+			displayFolder: Titles
+
+		measure 'Title - Overdue' = FORMAT ( COALESCE ( [Overdue receivables], 0 ), "#,0" ) & " of " & FORMAT ( COALESCE ( [Open receivables], 0 ), "#,0" ) & " " & [Cur] & " open receivables is overdue"
+			displayFolder: Titles
+
+		measure 'Title - Overdue share' = FORMAT ( DIVIDE ( [Overdue receivables], [Open receivables], 0 ), "0%" ) & " of open receivables is overdue"
+			displayFolder: Titles
+
+		measure 'Title - To bill' = FORMAT ( COALESCE ( [Billing backlog], 0 ), "#,0" ) & " " & [Cur] & " is delivered but not yet billed"
+			displayFolder: Titles
+
+		measure 'Title - Intake peak' =
+				VAR t = TOPN ( 1, VALUES ( order_intake[year_month] ), [Order intake] )
+				RETURN "Order intake (net of return requests) peaked in " & MAXX ( t, order_intake[year_month] ) & " at " & FORMAT ( CALCULATE ( [Order intake], t ), "#,0" ) & " " & [Cur]
+			displayFolder: Titles
+
+		measure 'Title - Division' =
+				VAR t = TOPN ( 1, VALUES ( net_revenue_by_division[division] ), [Net revenue by division] )
+				VAR v = CALCULATE ( [Net revenue by division], t )
+				RETURN "Division " & MAXX ( t, net_revenue_by_division[division] ) & " brings " & FORMAT ( v, "#,0" ) & " " & [Cur] & ", " & FORMAT ( DIVIDE ( v, [Net revenue by division] ), "0%" ) & " of net revenue"
+			displayFolder: Titles
+
+		measure 'Title - Mismatch' =
+				VAR x = CALCULATE ( [Net revenue by division], FILTER ( net_revenue_by_division, ( net_revenue_by_division[division] = "HA" && net_revenue_by_division[material_group] = "ADHESIV" ) || ( net_revenue_by_division[division] = "AD" && net_revenue_by_division[material_group] = "HAIRPRO" ) ) )
+				RETURN FORMAT ( COALESCE ( x, 0 ), "#,0" ) & " " & [Cur] & " sold under the other division's material group"
+			displayFolder: Titles
+
+		measure 'Title - Rejected' = FORMAT ( COALESCE ( [Rejected value], 0 ), "#,0" ) & " " & [Cur] & " cancelled by customers (" & COALESCE ( SUM ( rejected_order_value[rejected_lines] ), 0 ) & IF ( SUM ( rejected_order_value[rejected_lines] ) = 1, " line)", " lines)" )
+			displayFolder: Titles
+
+		measure 'Title - Credit memos' = FORMAT ( -COALESCE ( SUM ( credit_memos[returned_quantity] ), 0 ), "#,0" ) & " units returned, " & FORMAT ( -COALESCE ( [Credited value], 0 ), "#,0" ) & " " & [Cur] & " credited"
+			displayFolder: Titles
+
+
+
+	table Stage
+
+		column Stage
+			dataType: string
+			sourceColumn: [Stage]
+			sortByColumn: Order
+
+		column Order
+			dataType: int64
+			sourceColumn: [Order]
+
+		partition Stage = calculated
+			mode: import
+			source = DATATABLE ( "Stage", STRING, "Order", INTEGER, { { "1 Open to ship", 1 }, { "2 Billing backlog", 2 }, { "3 Open receivables", 3 } } )

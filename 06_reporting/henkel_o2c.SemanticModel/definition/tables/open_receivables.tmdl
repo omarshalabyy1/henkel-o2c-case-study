@@ -1,0 +1,93 @@
+table open_receivables
+	lineageTag: bfb82418-401d-48dc-926f-7b65120e3b4c
+
+	column billing_document_number
+		dataType: string
+		lineageTag: 5f23c457-f058-4047-8bf7-35b61c82a5a4
+		summarizeBy: none
+		sourceColumn: billing_document_number
+
+		annotation SummarizationSetBy = Automatic
+
+	column payer_customer
+		dataType: string
+		lineageTag: e9173d1c-3024-4465-80a3-9ad334121d4b
+		summarizeBy: none
+		sourceColumn: payer_customer
+
+		annotation SummarizationSetBy = Automatic
+
+	column customer_name
+		dataType: string
+		lineageTag: cf24d843-8022-445d-b7f1-b6c22733b070
+		summarizeBy: none
+		sourceColumn: customer_name
+
+		annotation SummarizationSetBy = Automatic
+
+	column document_currency
+		dataType: string
+		lineageTag: 392ae2b5-6827-426c-a5ef-9303a052683e
+		summarizeBy: none
+		sourceColumn: document_currency
+
+		annotation SummarizationSetBy = Automatic
+
+	column amount_in_document_currency
+		dataType: double
+		lineageTag: 53e93ded-c6c6-47cd-9ffc-0b43b0bdeae3
+		summarizeBy: sum
+		sourceColumn: amount_in_document_currency
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column net_due_date
+		dataType: dateTime
+		formatString: yyyy-mm-dd
+		lineageTag: 3c3fc32b-96d6-4340-a01b-c0ae62d3aa96
+		summarizeBy: none
+		sourceColumn: net_due_date
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column days_overdue
+		dataType: int64
+		formatString: 0
+		lineageTag: b6a0feff-882e-4aad-82ed-7a9d1add902b
+		summarizeBy: none
+		sourceColumn: days_overdue
+
+		annotation SummarizationSetBy = Automatic
+
+	column is_overdue
+		dataType: string
+		lineageTag: fb61d6c8-9160-4f20-bf48-0b155da0d977
+		summarizeBy: none
+		sourceColumn: is_overdue
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Overdue status' = IF ( LOWER ( open_receivables[is_overdue] ) = "true", "Overdue", "Not yet due" )
+		dataType: string
+		lineageTag: 6a2993c2-47b0-45ef-8ece-853b402879bf
+		summarizeBy: none
+
+		annotation SummarizationSetBy = Automatic
+
+	partition open_receivables = m
+		mode: import
+		source =
+				let
+				    Source = Odbc.DataSource("Driver={DuckDB Driver};Database=" & DuckDbPath & ";access_mode=read_only", [HierarchicalNavigation=true]),
+				    data_Database = Source{[Name="data",Kind="Database"]}[Data],
+				    mart_finance_Schema = data_Database{[Name="mart_finance",Kind="Schema"]}[Data],
+				    open_receivables_View = mart_finance_Schema{[Name="open_receivables",Kind="View"]}[Data]
+				in
+				    open_receivables_View
+
+	annotation PBI_ResultType = Table
+
