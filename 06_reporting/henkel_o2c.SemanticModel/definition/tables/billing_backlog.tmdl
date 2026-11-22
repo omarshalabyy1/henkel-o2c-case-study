@@ -46,6 +46,7 @@ table billing_backlog
 
 	column delivered_not_billed_value
 		dataType: double
+		formatString: #,0
 		lineageTag: 1dad46dd-9af1-4b2a-b4a8-0dbba7ed273b
 		summarizeBy: sum
 		sourceColumn: delivered_not_billed_value

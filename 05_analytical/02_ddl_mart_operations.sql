@@ -44,7 +44,8 @@ select
     count(*) filter (where f.is_on_time is not null) as fully_shipped_lines,
     count(*) filter (where f.is_on_time) as on_time_lines,
     round(count(*) filter (where f.is_on_time) / count(*) filter (where f.is_on_time is not null), 3) as on_time_rate,
-    max(f.days_late) as worst_days_late,
+    -- fully shipped lines only; 0 when none is late (an early shipment is not a delay)
+    greatest(max(f.days_late) filter (where f.is_on_time is not null), 0) as worst_days_late,
     count(*) filter (where f.is_past_due_unshipped) as past_due_unshipped_lines
 from semantic.fact_order_line f
 group by f.currency

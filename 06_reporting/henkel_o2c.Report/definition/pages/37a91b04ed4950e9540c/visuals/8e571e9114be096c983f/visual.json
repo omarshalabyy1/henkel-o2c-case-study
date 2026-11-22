@@ -27,7 +27,8 @@
                 }
               },
               "queryRef": "credit_memos.billing_document_number",
-              "nativeQueryRef": "billing_document_number"
+              "nativeQueryRef": "billing_document_number",
+              "displayName": "Credit memo"
             },
             {
               "field": {
@@ -41,7 +42,8 @@
                 }
               },
               "queryRef": "Sum(credit_memos.credited_value)",
-              "nativeQueryRef": "credited_value"
+              "nativeQueryRef": "credited_value",
+              "displayName": "Credited"
             },
             {
               "field": {
@@ -55,7 +57,8 @@
                 }
               },
               "queryRef": "credit_memos.reversed_invoice",
-              "nativeQueryRef": "reversed_invoice"
+              "nativeQueryRef": "reversed_invoice",
+              "displayName": "Reverses"
             },
             {
               "field": {
@@ -69,7 +72,8 @@
                 }
               },
               "queryRef": "Sum(credit_memos.returned_quantity)",
-              "nativeQueryRef": "returned_quantity"
+              "nativeQueryRef": "returned_quantity",
+              "displayName": "Units"
             },
             {
               "field": {
@@ -83,7 +87,8 @@
                 }
               },
               "queryRef": "credit_memos.billing_date",
-              "nativeQueryRef": "billing_date"
+              "nativeQueryRef": "billing_date",
+              "displayName": "Date"
             }
           ]
         }

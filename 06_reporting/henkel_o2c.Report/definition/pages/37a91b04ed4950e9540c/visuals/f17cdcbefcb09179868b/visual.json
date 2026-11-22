@@ -46,7 +46,8 @@
                 }
               },
               "queryRef": "order_intake.division",
-              "nativeQueryRef": "division"
+              "nativeQueryRef": "division",
+              "displayName": "Division"
             }
           ]
         },
@@ -121,6 +122,13 @@
               "expr": {
                 "Literal": {
                   "Value": "true"
+                }
+              }
+            },
+            "labelDisplayUnits": {
+              "expr": {
+                "Literal": {
+                  "Value": "1D"
                 }
               }
             }

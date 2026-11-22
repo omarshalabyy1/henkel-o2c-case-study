@@ -13,14 +13,15 @@ Usage:
 ===============================================================================
 */
 
--- every date used by the facts
+-- every date used by the facts, plus today (2026-05-04, the date the KPIs are measured on)
 create temp table all_dates as
 select order_creation_date as d from gold.order_lines
 union all select customer_requested_delivery_date from gold.order_lines
 union all select last_goods_issue_date from gold.order_lines
 union all select billing_date from gold.receivables
 union all select net_due_date from gold.receivables
-union all select clearing_date from gold.receivables;
+union all select clearing_date from gold.receivables
+union all select date '2026-05-04';
 
 -- dim_date: one row per day from min to max
 insert into semantic.dim_date by name

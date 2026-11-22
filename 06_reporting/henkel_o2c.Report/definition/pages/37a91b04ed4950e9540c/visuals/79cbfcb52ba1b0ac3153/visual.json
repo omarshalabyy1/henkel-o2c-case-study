@@ -28,7 +28,8 @@
               },
               "queryRef": "net_revenue_by_division.division",
               "nativeQueryRef": "division",
-              "active": true
+              "active": true,
+              "displayName": "Division"
             }
           ]
         },
@@ -47,7 +48,8 @@
               },
               "queryRef": "net_revenue_by_division.material_group",
               "nativeQueryRef": "material_group",
-              "active": true
+              "active": true,
+              "displayName": "Material group"
             }
           ]
         },

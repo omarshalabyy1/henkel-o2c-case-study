@@ -38,7 +38,7 @@ createOrReplace
 			formatString: #,0
 			displayFolder: KPIs
 
-		measure 'Overdue receivables' = CALCULATE ( [Open receivables], open_receivables[days_overdue] > 0 )
+		measure 'Overdue receivables' = CALCULATE ( [Open receivables], open_receivables[is_overdue] = "true" )
 			formatString: #,0
 			displayFolder: KPIs
 
@@ -51,7 +51,7 @@ createOrReplace
 			formatString: 0.0%
 			displayFolder: KPIs
 
-		measure 'Worst delay' = MAX ( on_time_delivery[worst_days_late] )
+		measure 'Worst delay' = MAX ( 0, COALESCE ( MAX ( on_time_delivery[worst_days_late] ), 0 ) )
 			formatString: 0
 			displayFolder: KPIs
 
@@ -77,7 +77,7 @@ createOrReplace
 				RETURN "Net revenue peaked in " & MAXX ( t, net_revenue_by_month[year_month] ) & " at " & FORMAT ( CALCULATE ( [Net revenue], t ), "#,0" ) & " " & [Cur]
 			displayFolder: Titles
 
-		measure 'Title - On time' = FORMAT ( SUM ( on_time_delivery[on_time_lines] ), "0" ) & " of " & FORMAT ( SUM ( on_time_delivery[fully_shipped_lines] ), "0" ) & " shipped lines left on time, worst " & [Worst delay] & " days late"
+		measure 'Title - On time' = FORMAT ( SUM ( on_time_delivery[on_time_lines] ), "0" ) & " of " & FORMAT ( SUM ( on_time_delivery[fully_shipped_lines] ), "0" ) & " shipped lines left on time" & IF ( [Worst delay] > 0, ", worst " & [Worst delay] & " days late", ", no late lines" )
 			displayFolder: Titles
 
 

@@ -27,7 +27,8 @@
                 }
               },
               "queryRef": "on_time_delivery_by_line.sales_order_number",
-              "nativeQueryRef": "sales_order_number"
+              "nativeQueryRef": "sales_order_number",
+              "displayName": "Order"
             },
             {
               "field": {
@@ -41,7 +42,8 @@
                 }
               },
               "queryRef": "on_time_delivery_by_line.item_number",
-              "nativeQueryRef": "item_number"
+              "nativeQueryRef": "item_number",
+              "displayName": "Item"
             },
             {
               "field": {
@@ -55,7 +57,8 @@
                 }
               },
               "queryRef": "on_time_delivery_by_line.sold_to_customer",
-              "nativeQueryRef": "sold_to_customer"
+              "nativeQueryRef": "sold_to_customer",
+              "displayName": "Customer"
             },
             {
               "field": {
@@ -69,7 +72,8 @@
                 }
               },
               "queryRef": "on_time_delivery_by_line.customer_requested_delivery_date",
-              "nativeQueryRef": "customer_requested_delivery_date"
+              "nativeQueryRef": "customer_requested_delivery_date",
+              "displayName": "Requested"
             },
             {
               "field": {
@@ -83,7 +87,8 @@
                 }
               },
               "queryRef": "on_time_delivery_by_line.last_goods_issue_date",
-              "nativeQueryRef": "last_goods_issue_date"
+              "nativeQueryRef": "last_goods_issue_date",
+              "displayName": "Shipped"
             },
             {
               "field": {
@@ -97,7 +102,8 @@
                 }
               },
               "queryRef": "Sum(on_time_delivery_by_line.days_late)",
-              "nativeQueryRef": "days_late"
+              "nativeQueryRef": "days_late",
+              "displayName": "Days late"
             },
             {
               "field": {
@@ -111,7 +117,8 @@
                 }
               },
               "queryRef": "on_time_delivery_by_line.Delivery status",
-              "nativeQueryRef": "Delivery status"
+              "nativeQueryRef": "Delivery status",
+              "displayName": "Status"
             },
             {
               "field": {
@@ -121,11 +128,12 @@
                       "Entity": "on_time_delivery_by_line"
                     }
                   },
-                  "Property": "is_past_due_unshipped"
+                  "Property": "Past due status"
                 }
               },
-              "queryRef": "on_time_delivery_by_line.is_past_due_unshipped",
-              "nativeQueryRef": "is_past_due_unshipped"
+              "queryRef": "on_time_delivery_by_line.Past due status",
+              "nativeQueryRef": "Past due status",
+              "displayName": "Past due"
             }
           ]
         }

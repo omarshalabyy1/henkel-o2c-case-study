@@ -28,6 +28,7 @@ table net_revenue_by_month
 
 	column invoiced_value
 		dataType: double
+		formatString: #,0
 		lineageTag: 7d9fec99-b624-456f-9af7-a3368b404336
 		summarizeBy: sum
 		sourceColumn: invoiced_value
@@ -38,6 +39,7 @@ table net_revenue_by_month
 
 	column credited_value
 		dataType: double
+		formatString: #,0
 		lineageTag: 51bbe318-15be-47a6-aac0-fa0eea4e6916
 		summarizeBy: sum
 		sourceColumn: credited_value

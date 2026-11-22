@@ -87,6 +87,13 @@ table on_time_delivery_by_line
 
 		annotation SummarizationSetBy = Automatic
 
+	column 'Past due status' = IF ( LOWER ( on_time_delivery_by_line[is_past_due_unshipped] ) = "true", "Yes", "No" )
+		dataType: string
+		lineageTag: 917b8964-8f4c-4800-bea5-bab3427afa95
+		summarizeBy: none
+
+		annotation SummarizationSetBy = Automatic
+
 	partition on_time_delivery_by_line = m
 		mode: import
 		source =

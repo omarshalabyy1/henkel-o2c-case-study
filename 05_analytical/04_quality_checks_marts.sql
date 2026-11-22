@@ -42,7 +42,7 @@ select
     currency,
     count(*) filter (where is_on_time is not null),
     count(*) filter (where is_on_time),
-    max(days_late),
+    greatest(max(days_late) filter (where is_on_time is not null), 0),
     count(*) filter (where is_past_due_unshipped)
 from mart_operations.on_time_delivery_by_line
 group by currency
@@ -57,7 +57,7 @@ except
 select
     count(*) filter (where is_on_time is not null),
     count(*) filter (where is_on_time),
-    max(days_late),
+    greatest(max(days_late) filter (where is_on_time is not null), 0),
     count(*) filter (where is_past_due_unshipped)
 from semantic.fact_order_line;
 

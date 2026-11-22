@@ -23,11 +23,12 @@
                       "Entity": "billing_backlog"
                     }
                   },
-                  "Property": "delivered_not_billed_value"
+                  "Property": "sales_order_number"
                 }
               },
-              "queryRef": "Sum(billing_backlog.delivered_not_billed_value)",
-              "nativeQueryRef": "delivered_not_billed_value"
+              "queryRef": "billing_backlog.sales_order_number",
+              "nativeQueryRef": "sales_order_number",
+              "displayName": "Order"
             },
             {
               "field": {
@@ -41,21 +42,8 @@
                 }
               },
               "queryRef": "billing_backlog.item_number",
-              "nativeQueryRef": "item_number"
-            },
-            {
-              "field": {
-                "Column": {
-                  "Expression": {
-                    "SourceRef": {
-                      "Entity": "billing_backlog"
-                    }
-                  },
-                  "Property": "sales_order_number"
-                }
-              },
-              "queryRef": "billing_backlog.sales_order_number",
-              "nativeQueryRef": "sales_order_number"
+              "nativeQueryRef": "item_number",
+              "displayName": "Item"
             },
             {
               "field": {
@@ -69,7 +57,8 @@
                 }
               },
               "queryRef": "billing_backlog.sold_to_customer",
-              "nativeQueryRef": "sold_to_customer"
+              "nativeQueryRef": "sold_to_customer",
+              "displayName": "Customer"
             },
             {
               "field": {
@@ -83,7 +72,23 @@
                 }
               },
               "queryRef": "billing_backlog.last_goods_issue_date",
-              "nativeQueryRef": "last_goods_issue_date"
+              "nativeQueryRef": "last_goods_issue_date",
+              "displayName": "Shipped on"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "billing_backlog"
+                    }
+                  },
+                  "Property": "delivered_not_billed_value"
+                }
+              },
+              "queryRef": "Sum(billing_backlog.delivered_not_billed_value)",
+              "nativeQueryRef": "delivered_not_billed_value",
+              "displayName": "Not billed"
             }
           ]
         }

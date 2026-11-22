@@ -1,0 +1,50 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 240" width="1000" height="240" role="img" aria-label="Henkel order-to-cash case study. 89 raw SAP rows, 5 layers, 43 data checks: one report that shows where 16,050 EUR waits between order and cash. Bars, as of 2026-05-04: 4,350 EUR ordered but not shipped, 4,200 EUR shipped but not billed, 7,500 EUR billed but not paid.">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#0B1220"/>
+      <stop offset="0.55" stop-color="#10213A"/>
+      <stop offset="1" stop-color="#0E1630"/>
+    </linearGradient>
+    <radialGradient id="glowA" cx="0.5" cy="0.5" r="0.5">
+      <stop offset="0" stop-color="#7C3AED" stop-opacity="0.4"/>
+      <stop offset="1" stop-color="#7C3AED" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="glowB" cx="0.5" cy="0.5" r="0.5">
+      <stop offset="0" stop-color="#14B8A6" stop-opacity="0.3"/>
+      <stop offset="1" stop-color="#14B8A6" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+  <style>
+    text { font-family: "Segoe UI", -apple-system, Helvetica, Arial, sans-serif; }
+    .eyebrow { font-size: 13px; font-weight: 600; fill: #60A5FA; letter-spacing: 1.5px; }
+    .title { font-size: 30px; font-weight: 700; fill: #FFFFFF; }
+    .result { font-size: 15px; fill: #CBD5E1; }
+    .chip { font-size: 13px; font-weight: 600; fill: #FFFFFF; }
+    .cap { font-size: 11.5px; fill: #94A3B8; }
+    .val { font-size: 13px; font-weight: 600; fill: #FFFFFF; }
+    .wave { fill: none; stroke-width: 2.5; stroke-linecap: round; stroke-dasharray: 2 10; animation: flow 6s linear infinite; }
+    @keyframes flow { to { stroke-dashoffset: -120; } }
+  </style>
+  <rect width="1000" height="240" rx="22" fill="url(#bg)"/>
+  <circle cx="880" cy="60" r="190" fill="url(#glowA)"/>
+  <circle cx="160" cy="220" r="170" fill="url(#glowB)"/>
+  <path class="wave" stroke="#2DD4BF" stroke-opacity="0.5" d="M24 229 C 200 224, 330 233, 500 229 S 800 225, 976 229"/>
+  <path class="wave" stroke="#A78BFA" stroke-opacity="0.4" style="animation-duration:9s" d="M40 235 C 220 231, 360 238, 520 235 S 820 232, 960 235"/>
+  <text x="50" y="62" class="eyebrow">PROJECT · ORDER-TO-CASH ANALYTICS</text>
+  <text x="50" y="104" class="title">Henkel order-to-cash case study</text>
+  <text x="50" y="136" class="result">89 raw SAP rows, 5 layers, 43 data checks: one report</text>
+  <text x="50" y="157" class="result">that shows where 16,050 EUR waits between order and cash.</text>
+  <rect x="50" y="180" width="135" height="30" rx="15" fill="#FFFFFF" fill-opacity="0.08"/><text x="117.5" y="200" class="chip" text-anchor="middle">89 raw SAP rows</text>
+  <rect x="195.0" y="180" width="81" height="30" rx="15" fill="#FFFFFF" fill-opacity="0.08"/><text x="235.5" y="200" class="chip" text-anchor="middle">5 layers</text>
+  <rect x="286.0" y="180" width="123" height="30" rx="15" fill="#3B82F6" fill-opacity="0.25"/><text x="347.5" y="200" class="chip" text-anchor="middle">43 data checks</text>
+  <text x="640" y="64" class="cap">Where 16,050 EUR waits, as of 2026-05-04</text>
+  <text x="640" y="92" class="cap">Ordered, not shipped</text>
+  <rect x="640" y="100" width="300" height="18" rx="4" fill="#FFFFFF" fill-opacity="0.08"/><rect x="640" y="100" width="174.0" height="18" rx="4" fill="#3B82F6"/>
+  <text x="822.0" y="114" class="val" text-anchor="start" style="fill:#FFFFFF">4,350 EUR</text>
+  <text x="640" y="138" class="cap">Shipped, not billed</text>
+  <rect x="640" y="146" width="300" height="18" rx="4" fill="#FFFFFF" fill-opacity="0.08"/><rect x="640" y="146" width="168.0" height="18" rx="4" fill="#0EA5E9"/>
+  <text x="816.0" y="160" class="val" text-anchor="start" style="fill:#FFFFFF">4,200 EUR</text>
+  <text x="640" y="184" class="cap">Billed, not paid</text>
+  <rect x="640" y="192" width="300" height="18" rx="4" fill="#FFFFFF" fill-opacity="0.08"/><rect x="640" y="192" width="300.0" height="18" rx="4" fill="#F59E0B"/>
+  <text x="932.0" y="206" class="val" text-anchor="end" style="fill:#0B1220">7,500 EUR</text>
+</svg>

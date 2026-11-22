@@ -36,6 +36,7 @@ table rejected_order_value
 
 	column rejected_value
 		dataType: double
+		formatString: #,0
 		lineageTag: d6ee42e4-9bcd-4ec4-a418-56d61bb6b79f
 		summarizeBy: sum
 		sourceColumn: rejected_value

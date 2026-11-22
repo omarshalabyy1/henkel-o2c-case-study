@@ -70,6 +70,7 @@ table credit_memos
 
 	column returned_quantity
 		dataType: double
+		formatString: #,0
 		lineageTag: 1b56f810-baf2-47ac-aa2a-7370d0d47877
 		summarizeBy: sum
 		sourceColumn: returned_quantity
@@ -80,6 +81,7 @@ table credit_memos
 
 	column credited_value
 		dataType: double
+		formatString: #,0
 		lineageTag: 60266c7a-725c-493f-98cc-604655ea014e
 		summarizeBy: sum
 		sourceColumn: credited_value

@@ -41,12 +41,13 @@ join silver.billing_docs d on d.billing_document_number = b.billing_document_num
 where d.billing_type in ('G2', 'S1') and b.item_net_value >= 0;
 
 -- order header net value differs from its active lines (schema line 145, data line 160)
-select o.sales_order_number, o.net_order_value, sum(l.line_value) as active_lines_value
+-- left join: an order with no lines, or only rejected lines, must have net value 0
+select o.sales_order_number, o.net_order_value,
+       coalesce(sum(l.line_value) filter (where not l.is_rejected), 0) as active_lines_value
 from silver.orders o
-join silver.order_lines l on l.sales_order_number = o.sales_order_number
-where l.is_rejected = false
+left join silver.order_lines l on l.sales_order_number = o.sales_order_number
 group by o.sales_order_number, o.net_order_value
-having o.net_order_value <> sum(l.line_value);
+having o.net_order_value <> coalesce(sum(l.line_value) filter (where not l.is_rejected), 0);
 
 -- order line currency differs from its order currency (schema line 160)
 select l.sales_order_number, l.item_number, l.currency, o.document_currency
@@ -125,3 +126,35 @@ where l.unit_of_measure <> m.base_unit_of_measure;
 select m.material_number
 from silver.materials m
 where not exists (select 1 from silver.material_names n where n.material_number = m.material_number);
+
+-- a receivable's amount differs from its billing document's net value (schema lines 212, 257, 259)
+select r.fi_document_number, r.reference_billing_document, r.amount_in_document_currency, d.net_billing_value
+from silver.receivables r
+join silver.billing_docs d on d.billing_document_number = r.reference_billing_document
+where r.amount_in_document_currency <> d.net_billing_value;
+
+-- an order line is invoiced (F2) for more than was shipped (schema lines 187, 225; credit memos excluded)
+select b.originating_sales_order, b.originating_sales_order_item,
+       sum(b.billed_quantity) as billed, coalesce(max(s.shipped_quantity), 0) as shipped
+from silver.billing_lines b
+join silver.billing_docs d on d.billing_document_number = b.billing_document_number
+left join silver.shipped_per_line s
+  on s.sales_order_number = b.originating_sales_order
+ and s.item_number = b.originating_sales_order_item
+where d.billing_type = 'F2'
+group by b.originating_sales_order, b.originating_sales_order_item
+having sum(b.billed_quantity) > coalesce(max(s.shipped_quantity), 0);
+
+-- a receivable's customer differs from its billing document's payer (schema lines 210, 251)
+select r.fi_document_number, r.reference_billing_document, r.customer_number, d.payer_customer
+from silver.receivables r
+join silver.billing_docs d on d.billing_document_number = r.reference_billing_document
+where r.customer_number <> d.payer_customer;
+
+-- a billing line's material differs from its order line's material (schema lines 156, 224, 228-229)
+select b.billing_document_number, b.billing_item_number, b.material_number, l.material_number
+from silver.billing_lines b
+join silver.order_lines l
+  on l.sales_order_number = b.originating_sales_order
+ and l.item_number = b.originating_sales_order_item
+where b.material_number <> l.material_number;

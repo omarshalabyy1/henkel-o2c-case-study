@@ -1,2 +1,536 @@
 cultureInfo en-US
 
+	linguisticMetadata =
+			{
+			  "Version": "2.0.0",
+			  "Language": "en-US",
+			  "Entities": {
+			    "billing_backlog.sales_order_number": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "billing_backlog",
+			          "ConceptualProperty": "sales_order_number"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "Order": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
+			        }
+			      ]
+			    },
+			    "billing_backlog.item_number": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "billing_backlog",
+			          "ConceptualProperty": "item_number"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "Item": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
+			        }
+			      ]
+			    },
+			    "billing_backlog.sold_to_customer": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "billing_backlog",
+			          "ConceptualProperty": "sold_to_customer"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "Customer": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
+			        }
+			      ]
+			    },
+			    "billing_backlog.last_goods_issue_date": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "billing_backlog",
+			          "ConceptualProperty": "last_goods_issue_date"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "Shipped on": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
+			        }
+			      ]
+			    },
+			    "billing_backlog.delivered_not_billed_value": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "billing_backlog",
+			          "ConceptualProperty": "delivered_not_billed_value"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "Not billed": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
+			        }
+			      ]
+			    },
+			    "rejected_order_value.description": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "rejected_order_value",
+			          "ConceptualProperty": "description"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "Reason": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
+			        }
+			      ]
+			    },
+			    "rejected_order_value.rejection_reason": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "rejected_order_value",
+			          "ConceptualProperty": "rejection_reason"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "Code": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
+			        }
+			      ]
+			    },
+			    "rejected_order_value.rejected_lines": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "rejected_order_value",
+			          "ConceptualProperty": "rejected_lines"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "Lines": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
+			        }
+			      ]
+			    },
+			    "rejected_order_value.rejected_value": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "rejected_order_value",
+			          "ConceptualProperty": "rejected_value"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "Value": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
+			        }
+			      ]
+			    },
+			    "net_revenue_by_division.division": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "net_revenue_by_division",
+			          "ConceptualProperty": "division"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "Division": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
+			        }
+			      ]
+			    },
+			    "net_revenue_by_division.material_group": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "net_revenue_by_division",
+			          "ConceptualProperty": "material_group"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "Material group": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
+			        }
+			      ]
+			    },
+			    "credit_memos.billing_document_number": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "credit_memos",
+			          "ConceptualProperty": "billing_document_number"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "Credit memo": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
+			        }
+			      ]
+			    },
+			    "credit_memos.credited_value": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "credit_memos",
+			          "ConceptualProperty": "credited_value"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "Credited": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
+			        }
+			      ]
+			    },
+			    "credit_memos.reversed_invoice": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "credit_memos",
+			          "ConceptualProperty": "reversed_invoice"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "Reverses": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
+			        }
+			      ]
+			    },
+			    "credit_memos.returned_quantity": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "credit_memos",
+			          "ConceptualProperty": "returned_quantity"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "Units": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
+			        }
+			      ]
+			    },
+			    "credit_memos.billing_date": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "credit_memos",
+			          "ConceptualProperty": "billing_date"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "Date": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
+			        }
+			      ]
+			    },
+			    "order_intake.division": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "order_intake",
+			          "ConceptualProperty": "division"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "Division": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
+			        }
+			      ]
+			    },
+			    "on_time_delivery_by_line.sales_order_number": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "on_time_delivery_by_line",
+			          "ConceptualProperty": "sales_order_number"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "Order": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
+			        }
+			      ]
+			    },
+			    "on_time_delivery_by_line.item_number": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "on_time_delivery_by_line",
+			          "ConceptualProperty": "item_number"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "Item": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
+			        }
+			      ]
+			    },
+			    "on_time_delivery_by_line.sold_to_customer": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "on_time_delivery_by_line",
+			          "ConceptualProperty": "sold_to_customer"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "Customer": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
+			        }
+			      ]
+			    },
+			    "on_time_delivery_by_line.customer_requested_delivery_date": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "on_time_delivery_by_line",
+			          "ConceptualProperty": "customer_requested_delivery_date"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "Requested": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
+			        }
+			      ]
+			    },
+			    "on_time_delivery_by_line.last_goods_issue_date": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "on_time_delivery_by_line",
+			          "ConceptualProperty": "last_goods_issue_date"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "Shipped": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
+			        }
+			      ]
+			    },
+			    "on_time_delivery_by_line.days_late": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "on_time_delivery_by_line",
+			          "ConceptualProperty": "days_late"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "Days late": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
+			        }
+			      ]
+			    },
+			    "on_time_delivery_by_line.delivery_status": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "on_time_delivery_by_line",
+			          "ConceptualProperty": "Delivery status"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "Status": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
+			        }
+			      ]
+			    },
+			    "on_time_delivery_by_line.is_past_due_unshipped": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "on_time_delivery_by_line",
+			          "ConceptualProperty": "is_past_due_unshipped"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "Past due": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
+			        }
+			      ]
+			    }
+			  }
+			}
+		contentType: json
+

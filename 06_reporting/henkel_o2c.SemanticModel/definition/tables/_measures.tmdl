@@ -45,7 +45,7 @@ table _measures
 		displayFolder: KPIs
 		lineageTag: 3967735b-5cf3-4588-ad43-ad2665d86e9e
 
-	measure 'Overdue receivables' = CALCULATE ( [Open receivables], open_receivables[days_overdue] > 0 )
+	measure 'Overdue receivables' = CALCULATE ( [Open receivables], open_receivables[is_overdue] = "true" )
 		formatString: #,0
 		displayFolder: KPIs
 		lineageTag: d4e7a0e8-320f-45ef-97af-0b3a400c0719
@@ -60,7 +60,7 @@ table _measures
 		displayFolder: KPIs
 		lineageTag: b491b970-c000-4193-9a82-1399375e7627
 
-	measure 'Worst delay' = MAX ( on_time_delivery[worst_days_late] )
+	measure 'Worst delay' = MAX ( 0, COALESCE ( MAX ( on_time_delivery[worst_days_late] ), 0 ) )
 		formatString: 0
 		displayFolder: KPIs
 		lineageTag: 86ea339a-14d9-47ad-9dbf-1508b70615d1
@@ -80,7 +80,7 @@ table _measures
 		displayFolder: Titles
 		lineageTag: 6f85d552-c07c-4a60-a6ed-e3f81d688133
 
-	measure 'Title - On time' = FORMAT ( SUM ( on_time_delivery[on_time_lines] ), "0" ) & " of " & FORMAT ( SUM ( on_time_delivery[fully_shipped_lines] ), "0" ) & " shipped lines left on time, worst " & [Worst delay] & " days late"
+	measure 'Title - On time' = FORMAT ( SUM ( on_time_delivery[on_time_lines] ), "0" ) & " of " & FORMAT ( SUM ( on_time_delivery[fully_shipped_lines] ), "0" ) & " shipped lines left on time" & IF ( [Worst delay] > 0, ", worst " & [Worst delay] & " days late", ", no late lines" )
 		displayFolder: Titles
 		lineageTag: 45d25c35-2268-4a8b-bd2e-faa5a8286ac1
 

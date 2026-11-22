@@ -51,7 +51,8 @@
                 }
               },
               "queryRef": "Sum(net_revenue_by_month.invoiced_value)",
-              "nativeQueryRef": "Sum of invoiced_value"
+              "nativeQueryRef": "Sum of invoiced_value",
+              "displayName": "Invoiced"
             },
             {
               "field": {
@@ -70,7 +71,8 @@
                 }
               },
               "queryRef": "Sum(net_revenue_by_month.credited_value)",
-              "nativeQueryRef": "Sum of credited_value"
+              "nativeQueryRef": "Sum of credited_value",
+              "displayName": "Credited"
             }
           ]
         }
