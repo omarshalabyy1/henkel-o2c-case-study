@@ -1,14 +1,12 @@
 /*
 ===============================================================================
-Quality Checks - Data marts
+Mart checks
 ===============================================================================
-Script Purpose:
-    Cross-checks KPIs across marts: billing headers must equal billing lines
-    per billing month and currency, and order intake must equal the order
-    headers (these checks also read silver). Every check returns the bad rows.
+Billing headers equal billing lines per month and currency, and order
+intake equals the order headers. Each query returns the bad rows;
+any row stops run_sql.py.
 
-Expectation:
-    No results. run_sql.py runs each check and stops if any returns rows.
+Run: python run_sql.py
 ===============================================================================
 */
 

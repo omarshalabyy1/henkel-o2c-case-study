@@ -1,18 +1,11 @@
 /*
 ===============================================================================
-DDL Script: Create the Finance data mart
+Finance mart
 ===============================================================================
-Script Purpose:
-    Creates the 'mart_finance' schema: the KPIs the Finance team reads directly
-    (brief line 35: Finance, Sales and Operations; line 115: work with it directly).
-    What is still to invoice, revenue by billing month, and what customers still owe.
-    Every view reads only the semantic star schema, so all marts share one
-    definition of customers, materials, dates, orders and revenue.
-    Money is always per currency (EUR and USD are never added).
-    "Today" = 2026-05-04, the extract date stated in 02_sample_data.sql.
+What is left to bill, revenue by month, and what customers still owe.
+Reads only the star schema. Money per currency. "Today" = 2026-05-04.
 
-Usage:
-    python run_sql.py   (runs after the semantic layer and its checks)
+Run: python run_sql.py
 ===============================================================================
 */
 

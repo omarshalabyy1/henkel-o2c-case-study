@@ -1,18 +1,11 @@
 /*
 ===============================================================================
-DDL Script: Create the Operations data mart
+Operations mart
 ===============================================================================
-Script Purpose:
-    Creates the 'mart_operations' schema: the KPIs the Operations team reads directly
-    (brief line 35: Finance, Sales and Operations; line 115: work with it directly).
-    What is still to ship, and whether shipments leave on time.
-    Every view reads only the semantic star schema, so all marts share one
-    definition of customers, materials, dates, orders and revenue.
-    Money is always per currency (EUR and USD are never added).
-    "Today" = 2026-05-04, the extract date stated in 02_sample_data.sql.
+What is left to ship, and whether it ships on time.
+Reads only the star schema. Money per currency. "Today" = 2026-05-04.
 
-Usage:
-    python run_sql.py   (runs after the semantic layer and its checks)
+Run: python run_sql.py
 ===============================================================================
 */
 

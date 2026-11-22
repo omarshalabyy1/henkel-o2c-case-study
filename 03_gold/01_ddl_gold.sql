@@ -1,20 +1,14 @@
 /*
 ===============================================================================
-Load Gold (Silver -> Gold)
+Gold tables: the business rules
 ===============================================================================
-Script Purpose:
-    Creates the 'gold' schema as TABLES: the business rules (open to ship,
-    delivered not billed, days late, days overdue, days to pay ...) on top of
-    silver, one row per order line / billing document / billing line / customer / material.
-    Rebuilt in full each run; the gold checks then test the stored rows.
-    The semantic layer (04_semantic) turns these into the star schema.
-    Columns taken from silver keep their schema-comment names; the added
-    columns (shipped, billed, open to ship, days late ...) say what they compute.
-    "Today" = 2026-05-04, the extract date stated in 02_sample_data.sql.
-    Money is never added across currencies: every row carries its currency.
+- One row per order line, billing document, billing line, customer and material.
+- Adds open to ship, delivered not billed, days late, days overdue, days to pay.
+- "Today" = 2026-05-04, the extract date.
+- Every row keeps its currency: EUR and USD are never added.
+- Rebuilt every run.
 
-Usage:
-    python run_sql.py   (runs silver and its checks, then this file, then the gold checks)
+Run: python run_sql.py
 ===============================================================================
 */
 

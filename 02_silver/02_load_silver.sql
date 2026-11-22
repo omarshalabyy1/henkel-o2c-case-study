@@ -1,19 +1,12 @@
 /*
 ===============================================================================
-Load Silver (Bronze -> Silver)
+Load silver from bronze
 ===============================================================================
-Script Purpose:
-    Fills the silver tables created by 01_ddl_silver.sql from the bronze
-    tables (src_*, never changed).
-    - Each SAP field is renamed to the words of its schema comment.
-    - 'select distinct' drops a row loaded twice (same values in every column).
-    - Two DIFFERENT rows with the same key break the PRIMARY KEY and stop the
-      load: the source gives no rule for which version wins.
-    - Parents are loaded before children (the FOREIGN KEYS need them).
-    'insert into ... by name' matches columns by name, not by position.
+- Renames the SAP fields; select distinct drops rows loaded twice.
+- Two different rows with the same key stop the load: no rule says which wins.
+- Parents load before children; insert ... by name matches columns by name.
 
-Usage:
-    python run_sql.py   (runs 01_ddl_silver.sql, then this file, then the checks)
+Run: python run_sql.py
 ===============================================================================
 */
 

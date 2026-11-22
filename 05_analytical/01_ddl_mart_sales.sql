@@ -1,18 +1,11 @@
 /*
 ===============================================================================
-DDL Script: Create the Sales data mart
+Sales mart
 ===============================================================================
-Script Purpose:
-    Creates the 'mart_sales' schema: the KPIs the Sales team reads directly
-    (brief line 35: Finance, Sales and Operations; line 115: work with it directly).
-    What customers ordered, cancelled and returned, and revenue by division.
-    Every view reads only the semantic star schema, so all marts share one
-    definition of customers, materials, dates, orders and revenue.
-    Money is always per currency (EUR and USD are never added).
-    "Today" = 2026-05-04, the extract date stated in 02_sample_data.sql.
+What customers ordered, cancelled and returned, and revenue by division.
+Reads only the star schema. Money per currency. "Today" = 2026-05-04.
 
-Usage:
-    python run_sql.py   (runs after the semantic layer and its checks)
+Run: python run_sql.py
 ===============================================================================
 */
 

@@ -1,16 +1,11 @@
 /*
 ===============================================================================
-Quality Checks - Semantic
+Semantic checks
 ===============================================================================
-Script Purpose:
-    Keys and links are already enforced by the PRIMARY KEY / FOREIGN KEY
-    constraints in 01_ddl_semantic.sql (a fact row pointing to a missing
-    customer, material or date stops the load).
-    These checks cover what a constraint cannot express.
-    Every check returns the bad rows.
+The rules the keys cannot express. Each query returns the bad rows;
+any row stops run_sql.py.
 
-Expectation:
-    No results. run_sql.py runs each check and stops if any returns rows.
+Run: python run_sql.py
 ===============================================================================
 */
 

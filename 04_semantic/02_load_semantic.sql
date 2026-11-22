@@ -1,15 +1,11 @@
 /*
 ===============================================================================
-Load Semantic (Gold -> Semantic)
+Load the star schema from gold
 ===============================================================================
-Script Purpose:
-    Fills the star schema from the gold tables. Dimensions first (the facts'
-    FOREIGN KEYS need them), then facts.
-    dim_date is dynamic: one row per day from the earliest to the latest date
-    found in the facts, so it grows with the data.
+Dimensions first, then facts. dim_date has one row per day from the
+earliest fact date to the latest (or 2026-05-04, if later).
 
-Usage:
-    python run_sql.py   (runs 01_ddl_semantic.sql, then this file, then the checks)
+Run: python run_sql.py
 ===============================================================================
 */
 

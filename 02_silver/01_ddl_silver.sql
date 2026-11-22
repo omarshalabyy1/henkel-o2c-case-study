@@ -1,22 +1,15 @@
 /*
 ===============================================================================
-DDL Script: Create Silver Tables (the data model)
+Silver tables: one per source table, with its keys
 ===============================================================================
-Script Purpose:
-    Creates the 'silver' schema: one table per source table, with the PRIMARY
-    KEY and FOREIGN KEY constraints documented in 01_source_schema.sql
-    (header lines 19-71 and the column comments), with two exceptions: makt
-    is loaded in English only, so its key is matnr alone (not matnr + spras),
-    and vbrp.vgbel has no FK because its target depends on the billing type
-    (a silver check tests it). DuckDB enforces the keys, so a
-    duplicate key, a NULL key or a link to a missing row stops the load
-    (schema lines 9-10: "You MUST handle duplicates defensively").
-    Column names = the words of each field's schema comment, in snake_case.
-    Column types = the source types.
-    The schema is dropped and recreated each run (full rebuild).
+- Columns renamed to their schema comments (snake_case), types unchanged.
+- PRIMARY and FOREIGN KEYs from 01_source_schema.sql: DuckDB refuses a
+  duplicate key, a NULL key or a missing parent.
+- Two exceptions: makt is keyed on matnr only (English names only), and
+  vbrp.vgbel has no FK (its target depends on the billing type; a check tests it).
+- Dropped and rebuilt every run.
 
-Usage:
-    python run_sql.py   (runs this file first)
+Run: python run_sql.py
 ===============================================================================
 */
 

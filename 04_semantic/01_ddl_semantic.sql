@@ -1,30 +1,18 @@
 /*
 ===============================================================================
-DDL Script: Create Semantic Tables (the star schema)
+Semantic tables: the star schema
 ===============================================================================
-Script Purpose:
-    Creates the 'semantic' schema: the star schema the analytical layer reads
-    (Kimball: 3 facts sharing conformed dimensions; every join is one hop).
-    Every source table lands in a fact or a dimension:
-      facts:      vbak + vbap + likp + lips + vbrp -> fact_order_line
-                  vbrk + bsid + bsad               -> fact_receivable
-                  vbrp + vbrk + vbak (division)    -> fact_billing_line
-      dimensions: kna1 -> dim_customer, mara + makt -> dim_material,
-                  tvkot -> dim_sales_organization, tvtwt -> dim_distribution_channel,
-                  t001w -> dim_plant, tvagt -> dim_rejection_reason, + dim_date
-    Keys = the source schema's PK / FK (lines 19-71) plus the order's channel
-    -> tvtwt (implied, not listed), declared here, so DuckDB
-    refuses a fact row that points to a missing dimension row.
-    fact_order_line and fact_receivable are accumulating snapshots as of
-    2026-05-04: one row per order line / billing document, with one date FK per
-    milestone (NULL until reached). fact_billing_line is a transaction fact:
-    one row per billing line, on its billing date. It links 1:N to both other
-    facts, so every relationship in the model is one-to-many.
-    Natural keys (no surrogate keys) and current values only (SCD type 1):
-    the extract is one snapshot with no history.
+- 3 facts: fact_order_line (vbak, vbap, likp, lips, vbrp),
+  fact_receivable (vbrk, bsid, bsad), fact_billing_line (vbrp, vbrk, vbak).
+- 7 dimensions: customer, material, sales organization, distribution channel,
+  plant, rejection reason, date.
+- Keys from the source schema, enforced by DuckDB: a fact row pointing to a
+  missing dimension row stops the load.
+- Order line and receivable facts are snapshots as of 2026-05-04;
+  billing line is a transaction fact.
+- Natural keys, current values only: the extract has no history.
 
-Usage:
-    python run_sql.py   (runs gold and its checks, then this file)
+Run: python run_sql.py
 ===============================================================================
 */
 

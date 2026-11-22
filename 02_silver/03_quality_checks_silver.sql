@@ -1,15 +1,11 @@
 /*
 ===============================================================================
-Quality Checks - Silver
+Silver checks
 ===============================================================================
-Script Purpose:
-    Duplicate keys, NULL keys and broken links are already refused by the
-    PRIMARY KEY / FOREIGN KEY constraints in 01_ddl_silver.sql.
-    These checks cover Henkel's rules that a constraint cannot express.
-    Every check returns the bad rows.
+The rules the keys cannot express. Each query returns the bad rows;
+any row stops run_sql.py.
 
-Expectation:
-    No results. run_sql.py runs each check and stops if any returns rows.
+Run: python run_sql.py
 ===============================================================================
 */
 

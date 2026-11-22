@@ -1,15 +1,11 @@
 /*
 ===============================================================================
-DDL Script: Create the shared data mart
+Shared mart: the currency list
 ===============================================================================
-Script Purpose:
-    Creates the 'mart_shared' schema: small lists every department uses.
-    currency: one row per currency found in the facts (no hard-coded list).
-    Power BI links it 1 -> N to every mart view that holds money, so one
-    slicer filters them all and EUR and USD are never added together.
+One row per currency found in the facts. Power BI links it to every view
+that holds money, so one slicer filters them all and EUR and USD never add up.
 
-Usage:
-    python run_sql.py   (runs after the department marts, before their checks)
+Run: python run_sql.py
 ===============================================================================
 */
 

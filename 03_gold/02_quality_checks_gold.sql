@@ -1,15 +1,12 @@
 /*
 ===============================================================================
-Quality Checks - Gold
+Gold checks
 ===============================================================================
-Script Purpose:
-    Every check returns the bad rows.
-    - One row per key in the main gold tables (a join must not multiply rows)
-    - Every billing document has a receivable item (schema line 65)
-    - Money per currency in gold = the raw bronze tables (nothing dropped or doubled)
+One row per key (no join multiplies rows), a receivable for every billing
+document, and money per currency equal to bronze. Each query returns the
+bad rows; any row stops run_sql.py.
 
-Expectation:
-    No results. run_sql.py runs each check and stops if any returns rows.
+Run: python run_sql.py
 ===============================================================================
 */
 
